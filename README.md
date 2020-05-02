@@ -1,6 +1,6 @@
-# effe_ca
+# EffeCA
 
-A new Flutter project.
+A new Flutter application.
 
 ## Getting Started
 

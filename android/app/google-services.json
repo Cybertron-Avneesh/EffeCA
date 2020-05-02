@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "324356580052",
+    "firebase_url": "https://effeca-e06ba.firebaseio.com",
+    "project_id": "effeca-e06ba",
+    "storage_bucket": "effeca-e06ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324356580052:android:5279e8a647a503ee54d141",
+        "android_client_info": {
+          "package_name": "com.effe20.EffeCA"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324356580052-i3up5a0jhj7mcka98o616p6c5enpg2gc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.effe20.EffeCA",
+            "certificate_hash": "fdf50f9e009ed6f4cf7cf47dabdd4b6b12bb0736"
+          }
+        },
+        {
+          "client_id": "324356580052-ootftqpbpt85c3dvstu6ffug6cc4snus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2o-yyfyjyvP443uLMoBTLohBa0AzGeaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324356580052-ootftqpbpt85c3dvstu6ffug6cc4snus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
