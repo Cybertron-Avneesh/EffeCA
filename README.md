@@ -8,8 +8,11 @@ A new Flutter application.
 - [x] Configure Google Sign in
 - [x] Add Shared Preferences(to store Credentials Locally)
 - [ ] Improve Login UI
-- [ ] Add SideBar (Navigation Drawer)
-- [ ] .....
+- [x] Add SideBar (Navigation Drawer)
+- [ ] Complete About Screen
+- [ ] Complete Developer Info Screen
+- [ ] Complete Contacts Screen
+- [ ] ......
 
 ## Getting Started
 
