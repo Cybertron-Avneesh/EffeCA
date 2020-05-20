@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:EffeCA/screens/login_page.dart';
+import 'screens/firstscreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+//      home: LoginPage(),
+      home: FirstScreen(),
     );
   }
 }
