@@ -6,13 +6,13 @@ import 'package:EffeCA/components/navDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 
-class FirstScreen extends StatefulWidget {
-  static const String id = 'first_screen';
+class EventScreen extends StatefulWidget {
+  static const String id = 'event_screen';
   @override
-  _FirstScreenState createState() => _FirstScreenState();
+  _EventScreenState createState() => _EventScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen> {
+class _EventScreenState extends State<EventScreen> {
   User userLoad = new User();
 
   Future funcThatMakesAsyncCall() async {
@@ -33,19 +33,16 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-    
-      home: Scaffold(
-        drawer: NavDrawer(userLoad: userLoad),
-        appBar: AppBar(
-          title: Text('Home'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-            // Add Logout Feature
-          ],
-        ),
-        body: Center(child: Text('This is Home Screen')),
+    return Scaffold(
+      drawer: NavDrawer(userLoad: userLoad),
+      appBar: AppBar(
+        title: Text('Events'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.more_vert), onPressed: null)
+          // Add Logout Feature
+        ],
       ),
+      body: Center(child: Text('This is Event Screen')),
     );
   }
 }

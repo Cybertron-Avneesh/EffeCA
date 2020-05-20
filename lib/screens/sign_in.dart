@@ -1,3 +1,6 @@
+import 'package:EffeCA/Utils/constants.dart';
+import 'package:EffeCA/Utils/shared_preference_helper.dart';
+import 'package:EffeCA/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -18,25 +21,34 @@ Future<String> signInWithGoogle() async {
   );
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
-  final FirebaseUser user = authResult.user;
+  final FirebaseUser firebaseuser = authResult.user;
 
-  assert(user.email != null);
-  assert(user.displayName != null);
-  assert(user.photoUrl != null);
+  assert(firebaseuser.email != null);
+  assert(firebaseuser.displayName != null);
+  assert(firebaseuser.photoUrl != null);
 
-  name = user.displayName;
-  email = user.email;
-  imageUrl = user.photoUrl;
+  name = firebaseuser.displayName;
+  email = firebaseuser.email;
+  imageUrl = firebaseuser.photoUrl;
 
-// Only taking the first part of the name, i.e., First Name
+/* Only taking the first part of the name, i.e., First Name
   if (name.contains(" ")) {
     name = name.substring(0, name.indexOf(" "));
-  }
-  return 'signInWithGoogle succeeded: $user';
+  }*/
+
+  User user = User();
+  user.name = name;
+  user.email = email;
+  user.imageURL = imageUrl;
+
+  SharedPreferenceHelper.setBooleanValue(Constants.USER_IS_LOGGED_IN, true);
+  SharedPreferenceHelper.setStringValue(Constants.USER_OBJECT, user);
+  return 'signInWithGoogle succeeded: $firebaseuser';
 }
 
 void signOutGoogle() async {
   await googleSignIn.signOut();
+  SharedPreferenceHelper.clearPreferences();
 
   print("User Sign Out");
 }

@@ -2,6 +2,18 @@
 
 A new Flutter application.
 
+## ToDos
+- [x] Create Project
+- [x] Connect to firebase
+- [x] Configure Google Sign in
+- [x] Add Shared Preferences(to store Credentials Locally)
+- [ ] Improve Login UI
+- [x] Add SideBar (Navigation Drawer)
+- [ ] Complete About Screen
+- [ ] Complete Developer Info Screen
+- [ ] Complete Contacts Screen
+- [ ] ......
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
