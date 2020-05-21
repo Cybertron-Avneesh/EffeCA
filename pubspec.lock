@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   charcode:
     dependency: transitive
     description:
@@ -120,6 +127,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+2"
+  firebase_database:
+    dependency: "direct main"
+    description:
+      name: firebase_database
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.5"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -219,6 +233,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.4.0"
+
   platform_detect:
     dependency: transitive
     description:
@@ -226,6 +241,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+
   plugin_platform_interface:
     dependency: transitive
     description:

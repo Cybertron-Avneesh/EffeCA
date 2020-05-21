@@ -10,7 +10,7 @@ A new Flutter application.
 - [ ] Improve Login UI
 - [x] Add SideBar (Navigation Drawer)
 - [ ] Complete About Screen
-- [ ] Complete Developer Info Screen
+- [x] Complete Developer Info Screen
 - [ ] Complete Contacts Screen
 - [ ] ......
 

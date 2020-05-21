@@ -31,8 +31,13 @@ dependencies:
   google_sign_in: ^4.4.4
   firebase_auth: ^0.16.0
   shared_preferences: ^0.5.7+2
+
   eva_icons_flutter: ^2.0.0
   url_launcher: ^5.4.7
+
+  firebase_database: ^3.1.5
+  carousel_slider: ^2.1.0
+
 
 dev_dependencies:
   flutter_test:
