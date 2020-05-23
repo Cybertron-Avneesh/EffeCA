@@ -15,7 +15,7 @@ class DevInfoScreen extends StatefulWidget {
 class _DevInfoScreenState extends State<DevInfoScreen> {
   User userLoad = new User();
 
-  Future funcThatMakesAsyncCall() async {
+  Future fetchUserDetailsFromSharedPref() async {
     var result =
         await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
     Map valueMap = json.decode(result);
@@ -28,7 +28,7 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
   @override
   void initState() {
     super.initState();
-    funcThatMakesAsyncCall();
+    fetchUserDetailsFromSharedPref();
   }
 
   @override
