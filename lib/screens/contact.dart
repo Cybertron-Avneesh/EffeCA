@@ -158,7 +158,7 @@ class _ContactDrawerState extends State<ContactDrawer> {
           child: Row(
             children:<Widget>[
               IconButton(
-                splashColor: Colors.lightBlueAccent,
+                splashColor: Colors.redAccent,
                 icon: Icon(
                   EvaIcons.email,
                   color: Colors.red,
