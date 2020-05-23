@@ -15,7 +15,7 @@ class MessageScreen extends StatefulWidget {
 class _MessageScreenState extends State<MessageScreen> {
   User userLoad = new User();
 
-  Future funcThatMakesAsyncCall() async {
+  Future fetchUserDetailsFromSharedPref() async {
     var result =
         await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
     Map valueMap = json.decode(result);
@@ -28,7 +28,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   void initState() {
     super.initState();
-    funcThatMakesAsyncCall();
+    fetchUserDetailsFromSharedPref();
   }
 
   @override

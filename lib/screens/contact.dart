@@ -32,7 +32,7 @@ class ContactScreen extends StatefulWidget {
 class _ContactScreenState extends State<ContactScreen> {
   User userLoad = new User();
 
-  Future funcThatMakesAsyncCall() async {
+  Future fetchUserDetailsFromSharedPref() async {
     var result =
         await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
     Map valueMap = json.decode(result);
@@ -45,7 +45,7 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   void initState() {
     super.initState();
-    funcThatMakesAsyncCall();
+    fetchUserDetailsFromSharedPref();
   }
 
   @override
@@ -94,7 +94,7 @@ class _ContactScreenState extends State<ContactScreen> {
           SizedBox(
             height:20,
           ),
-          ContactDrawer(name: "Ritik Hirchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+          ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
           ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
           ContactDrawer(name: "Karan Kunwar",phoneNo: "7908175902",email: "karankunwar59@gmail.com"),
           ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
@@ -114,7 +114,7 @@ class _ContactScreenState extends State<ContactScreen> {
           SizedBox(
             height:20,
           ),
-          ContactDrawer(name: "Ritik Hirchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+          ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
           ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
           ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
           ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
@@ -181,6 +181,6 @@ class _ContactDrawerState extends State<ContactDrawer> {
           ),
         ),
       ],
-    );;
+    );
   }
 }

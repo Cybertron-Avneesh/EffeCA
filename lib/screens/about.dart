@@ -18,7 +18,7 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   User userLoad = new User();
 
-  Future funcThatMakesAsyncCall() async {
+  Future fetchUserDetailsFromSharedPref() async {
     var result =
         await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
     Map valueMap = json.decode(result);
@@ -31,7 +31,7 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   void initState() {
     super.initState();
-    funcThatMakesAsyncCall();
+    fetchUserDetailsFromSharedPref();
   }
 
   @override
