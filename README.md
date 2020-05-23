@@ -9,10 +9,10 @@ A new Flutter application.
 - [x] Add Shared Preferences(to store Credentials Locally)
 - [ ] Improve Login UI
 - [x] Add SideBar (Navigation Drawer)
-- [ ] Complete About Screen
+- [x] Complete About Screen
 - [x] Complete Developer Info Screen
-- [ ] Complete Contacts Screen
-- [ ] ......
+- [x] Complete Contacts Screen
+- [x] Home, Leaderboard, and Events.
 
 ## Getting Started
 
