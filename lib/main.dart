@@ -1,3 +1,4 @@
+import 'package:EffeCA/components/navigationDrawer.dart';
 import 'package:EffeCA/screens/firstscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:EffeCA/screens/login_page.dart';
@@ -21,9 +22,9 @@ class MyApp extends StatelessWidget {
           ),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
-              return snapshot.data ? FirstScreen() : LoginPage();
+              return snapshot.data ? MainWidget() : LoginPage();
             }
-            return Container();
+            return MainWidget();
           },
         ));
   }

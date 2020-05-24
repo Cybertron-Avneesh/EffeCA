@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'firstscreen.dart';
+import 'package:EffeCA/components/navigationDrawer.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return FirstScreen();
+                return MainWidget();
               },
             ),
           );

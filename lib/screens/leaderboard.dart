@@ -1,16 +1,14 @@
 import 'dart:convert';
-
+import 'package:EffeCA/components/drawer.dart';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 final _firestoreLB = Firestore.instance.collection('Leaderboard');
 
-class LeaderboardScreen extends StatefulWidget {
+class LeaderboardScreen extends DrawerContent {
   static const String id = 'leaderboard_screen';
   @override
   _LeaderboardScreenState createState() => _LeaderboardScreenState();
@@ -27,6 +25,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     setState(() {
       userLoad = user;
     });
+
   }
 
   @override
@@ -38,8 +37,14 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(userLoad: userLoad),
+
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+          ),
+          onPressed: widget.onMenuPressed,
+        ),
         title: Text('Leaderboard'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)
@@ -48,7 +53,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       ),
       body: Center(
           child: StreamBuilder<QuerySnapshot>(
-        stream: _firestoreLB.orderBy('total_point',descending: true).snapshots(),
+        stream:
+            _firestoreLB.orderBy('total_point', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -60,9 +66,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           final leaderDetails = snapshot.data.documents;
           List<LBCard> LBCards = [];
           int index = 1;
-         
+
           for (var detail in leaderDetails) {
-            
             var lbCard;
             final name = detail.data['name'];
             final email = detail.data['email'];

@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:EffeCA/components/drawer.dart';
 
-class DevInfoScreen extends StatefulWidget {
+class DevInfoScreen extends DrawerContent {
   static const String id = 'devinfo_screen';
   @override
   _DevInfoScreenState createState() => _DevInfoScreenState();
 }
 
 class _DevInfoScreenState extends State<DevInfoScreen> {
-  User userLoad = new User();
+ User userLoad = new User();
 
   Future fetchUserDetailsFromSharedPref() async {
     var result =
@@ -34,24 +34,22 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(userLoad: userLoad),
       appBar: AppBar(
-        backgroundColor: Color(0xfffbc7d4),
+        backgroundColor: kSkin,
         title: Text('Developer info'),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-          // Add Logout Feature
-        ],
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+          ),
+          onPressed: widget.onMenuPressed,
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xfffbc7d4),
-              Color(0xff9796f0),
-            ],
+            colors: kBgGradient,
           ),
         ),
         child: Column(
@@ -139,15 +137,17 @@ class Developer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Card(
+        Container(
           child: CircleAvatar(
             maxRadius: 50,
             backgroundImage: NetworkImage(avatar),
           ),
-          elevation: 10.0,
-          shadowColor: Colors.black,
-          shape: CircleBorder(),
-          clipBehavior: Clip.antiAlias,
+
+          decoration: new BoxDecoration(
+            color: Colors.black, // border color
+            shape: BoxShape.circle,
+          ),
+
         ),
 
 
@@ -156,10 +156,9 @@ class Developer extends StatelessWidget {
           child: Text(
             name,
             style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.white70,
-              fontWeight: FontWeight.w400,
-
+              fontSize: 20.0,
+              color: Colors.blueGrey,
+              fontWeight: FontWeight.w300,
             ),
           ),
         )

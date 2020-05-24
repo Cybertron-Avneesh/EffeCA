@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
+
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:EffeCA/components/drawer.dart';
 
 Future<void> _makePhoneCall(String url) async {
   if (await canLaunch(url)) {
@@ -23,7 +24,7 @@ Future<void> _sendEmail(String url) async {
   }
 }
 
-class ContactScreen extends StatefulWidget {
+class ContactScreen extends DrawerContent {
   static const String id = 'contact_screen';
   @override
   _ContactScreenState createState() => _ContactScreenState();
@@ -51,8 +52,14 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(userLoad: userLoad),
+
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+          ),
+          onPressed: widget.onMenuPressed,
+        ),
         title: Text('Contacts'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)
