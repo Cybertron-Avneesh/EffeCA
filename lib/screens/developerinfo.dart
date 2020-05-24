@@ -36,15 +36,24 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
     return Scaffold(
       drawer: NavDrawer(userLoad: userLoad),
       appBar: AppBar(
+        backgroundColor: Color(0xfffbc7d4),
         title: Text('Developer info'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)
           // Add Logout Feature
         ],
       ),
-      body: SingleChildScrollView(
-        reverse: true,
-        scrollDirection: Axis.vertical,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xfffbc7d4),
+              Color(0xff9796f0),
+            ],
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -110,6 +119,7 @@ class Heading extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20.0,
+          color: Colors.white,
           fontWeight: FontWeight.w800,
         ),
       ),
@@ -129,25 +139,26 @@ class Developer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(2.0),
+        Card(
           child: CircleAvatar(
-            radius: 62,
+            maxRadius: 50,
             backgroundImage: NetworkImage(avatar),
           ),
-            decoration: new BoxDecoration(
-              color: Colors.black, // border color
-              shape: BoxShape.circle,
-            ),
+          elevation: 10.0,
+          shadowColor: Colors.black,
+          shape: CircleBorder(),
+          clipBehavior: Clip.antiAlias,
         ),
+
+
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Text(
             name,
             style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.blueGrey,
-              fontWeight: FontWeight.w300,
+              fontSize: 15.0,
+              color: Colors.white70,
+              fontWeight: FontWeight.w400,
 
             ),
           ),
