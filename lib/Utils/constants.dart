@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Constants{
   static const USER_OBJECT = 'user_object';
   static const USER_IS_LOGGED_IN = 'is_user_logged_in';
@@ -7,3 +9,13 @@ static const ParticipationDesc = 'It is only the Campus Ambassadors who are resp
 static const SocialMediaDesc = 'Promoting Effervescence, IIIT Allahabad on various other social media platforms like Twitter, Instagram and even various Facebook and Whatsapp groups.';
 static const MulticityDesc = 'The CAs are expected to coordinate with EFFE Team and help us conduct the multicity program in your city(if selected) along with managing public relations with Effervescence';
 }
+
+Color kPurple = Color(0xffB600FF);
+Color kLightPurple= Color(0xffD9A2EF);
+Color kSkin = Color(0xffF6CeCC);
+Color kWhite = Color(0xffEBE7F6);
+
+List<Color> kBgGradient =[
+  kSkin,
+  kWhite,
+];

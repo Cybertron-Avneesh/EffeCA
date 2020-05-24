@@ -16,9 +16,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Effe CA',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
         home: FutureBuilder(
           future: SharedPreferenceHelper.getBooleanValue(
             Constants.USER_IS_LOGGED_IN,
