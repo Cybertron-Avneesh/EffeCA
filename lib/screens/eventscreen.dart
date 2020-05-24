@@ -2,19 +2,19 @@ import 'dart:convert';
 
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../Utils/shared_preference_helper.dart';
+import 'package:EffeCA/components/drawer.dart';
 
 final _firestoreLeaderboard = Firestore.instance.collection('Leaderboard');
 final _firestoreEvent = Firestore.instance.collection('EventList');
 User userLoad = new User();
 
-class EventScreen extends StatefulWidget {
+class EventScreen extends DrawerContent {
   static const String id = 'event_screen';
   @override
   _EventScreenState createState() => _EventScreenState();
@@ -40,8 +40,13 @@ class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(userLoad: userLoad),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+          ),
+          onPressed: widget.onMenuPressed,
+        ),
         title: Text('Events'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)

@@ -1,22 +1,25 @@
 import 'dart:convert';
-
+import 'package:EffeCA/components/drawer.dart';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 final _firestoreLBDetail = Firestore.instance.collection('Leaderboard');
 
-class FirstScreen extends StatefulWidget {
+class FirstScreen extends DrawerContent {
   static const String id = 'first_screen';
   @override
   _FirstScreenState createState() => _FirstScreenState();
 }
 
-class _FirstScreenState extends State<FirstScreen> {
+class _FirstScreenState extends State<FirstScreen>
+    with SingleTickerProviderStateMixin {
   User userLoad = new User();
+  Animation animation;
+  AnimationController controller;
 
   Future fetchUserDetailsFromSharedPref() async {
     var result =
@@ -32,19 +35,34 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     super.initState();
     fetchUserDetailsFromSharedPref();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+
+    animation = IntTween(begin: 50, end: 2)
+        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
+
+    print(animation.value);
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+    print(controller.value);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            drawer: NavDrawer(userLoad: userLoad),
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(
+                  Icons.menu,
+                ),
+                onPressed: widget.onMenuPressed,
+              ),
               title: Text('Home'),
-              actions: <Widget>[
-                IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-                // Add Logout Feature
-              ],
             ),
             body: Container(
               alignment: Alignment.topCenter,
