@@ -1,12 +1,11 @@
 import 'dart:convert';
-
+import 'package:EffeCA/components/drawer.dart';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 
-class MessageScreen extends StatefulWidget {
+class MessageScreen extends DrawerContent {
   static const String id = 'message_screen';
   @override
   _MessageScreenState createState() => _MessageScreenState();
@@ -34,8 +33,14 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(userLoad: userLoad),
+
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+          ),
+          onPressed: widget.onMenuPressed,
+        ),
         title: Text('Message'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)

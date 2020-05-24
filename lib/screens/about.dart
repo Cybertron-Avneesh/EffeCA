@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-import 'package:EffeCA/components/navDrawer.dart';
+
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import 'package:EffeCA/components/drawer.dart';
 import '../Utils/constants.dart';
 
-class AboutScreen extends StatefulWidget {
+class AboutScreen extends DrawerContent {
   static const String id = 'about_screen';
   @override
   _AboutScreenState createState() => _AboutScreenState();
@@ -37,8 +37,14 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(userLoad: userLoad),
+
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+          ),
+          onPressed: widget.onMenuPressed,
+        ),
         title: Text('About'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)
