@@ -35,6 +35,7 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kSkin,
         title: Text('Developer info'),
         leading: IconButton(
           icon: Icon(
@@ -43,9 +44,14 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
           onPressed: widget.onMenuPressed,
         ),
       ),
-      body: SingleChildScrollView(
-        reverse: true,
-        scrollDirection: Axis.vertical,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: kBgGradient,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -111,6 +117,7 @@ class Heading extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20.0,
+          color: Colors.white,
           fontWeight: FontWeight.w800,
         ),
       ),
@@ -131,18 +138,21 @@ class Developer extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.all(2.0),
           child: CircleAvatar(
-            radius: 62,
+            maxRadius: 50,
             backgroundImage: NetworkImage(avatar),
           ),
+
           decoration: new BoxDecoration(
             color: Colors.black, // border color
             shape: BoxShape.circle,
           ),
+
         ),
+
+
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Text(
             name,
             style: TextStyle(
