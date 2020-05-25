@@ -6,6 +6,7 @@ import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 final _firestoreLB = Firestore.instance.collection('Leaderboard');
 
 class LeaderboardScreen extends DrawerContent {
@@ -25,7 +26,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     setState(() {
       userLoad = user;
     });
-
   }
 
   @override
@@ -37,8 +37,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
+        backgroundColor: kSkin,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -51,58 +51,68 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           // Add Logout Feature
         ],
       ),
-      body: Center(
-          child: StreamBuilder<QuerySnapshot>(
-        stream:
-            _firestoreLB.orderBy('total_point', descending: true).snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
-              ),
-            );
-          }
-          final leaderDetails = snapshot.data.documents;
-          List<LBCard> LBCards = [];
-          int index = 1;
-
-          for (var detail in leaderDetails) {
-            var lbCard;
-            final name = detail.data['name'];
-            final email = detail.data['email'];
-            final tPoint = detail.data['total_point'];
-            print(detail);
-            if (email == userLoad.email) {
-              lbCard = LBCard(
-                name: name,
-                email: email,
-                total_point: tPoint,
-                rank: index,
-                color: Colors.blue,
-              );
-            } else {
-              lbCard = LBCard(
-                name: name,
-                email: email,
-                total_point: tPoint,
-                rank: index,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: kBgGradient,
+          ),
+        ),
+        child: Center(
+            child: StreamBuilder<QuerySnapshot>(
+          stream:
+              _firestoreLB.orderBy('total_point', descending: true).snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.lightBlueAccent,
+                ),
               );
             }
-            LBCards.add(lbCard);
-            index++;
-          }
-          return Expanded(
-            child: ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 20.0,
+            final leaderDetails = snapshot.data.documents;
+            List<LBCard> LBCards = [];
+            int index = 1;
+
+            for (var detail in leaderDetails) {
+              var lbCard;
+              final name = detail.data['name'];
+              final email = detail.data['email'];
+              final tPoint = detail.data['total_point'];
+              print(detail);
+              if (email == userLoad.email) {
+                lbCard = LBCard(
+                  name: name,
+                  email: email,
+                  total_point: tPoint,
+                  rank: index,
+                  color: kPurple,
+                  elivation: 0,
+                );
+              } else {
+                lbCard = LBCard(
+                  name: name,
+                  email: email,
+                  total_point: tPoint,
+                  rank: index,
+                );
+              }
+              LBCards.add(lbCard);
+              index++;
+            }
+            return Expanded(
+              child: ListView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 20.0,
+                ),
+                children: LBCards,
               ),
-              children: LBCards,
-            ),
-          );
-        },
-      )),
+            );
+          },
+        )),
+      ),
     );
   }
 }
@@ -110,27 +120,33 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 class LBCard extends StatelessWidget {
   LBCard(
       {@required this.name,
-      @required this.email,
-      @required this.total_point,
-      this.rank,
-      this.color});
+        @required this.email,
+        @required this.total_point,
+        this.rank,
+        this.color, this.elivation});
 
   final String name;
   final String email;
   final int total_point;
   final int rank;
   final Color color;
+  final double elivation;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: color ?? Colors.white,
-      elevation: 20,
+      elevation: elivation??20,
+      shadowColor: kShadow,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ListTile(
         title: Text(name),
         subtitle: Text('$total_point pts'),
         leading: CircleAvatar(
-            child: Text(rank.toString(), style: TextStyle(fontSize: 16))),
+          child: Text(rank.toString(), style: TextStyle(fontSize: 16,
+              color: kWhite)),
+          backgroundColor: kLightPurple,
+        ),
       ),
     );
   }

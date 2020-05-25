@@ -56,6 +56,7 @@ class _FirstScreenState extends State<FirstScreen>
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
+              backgroundColor: kSkin,
               leading: IconButton(
                 icon: Icon(
                   Icons.menu,
@@ -65,6 +66,13 @@ class _FirstScreenState extends State<FirstScreen>
               title: Text('Home'),
             ),
             body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: kBgGradient,
+                ),
+              ),
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
