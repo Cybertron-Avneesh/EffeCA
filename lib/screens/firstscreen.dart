@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:EffeCA/Utils/notificationHandler.dart';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
 import 'package:EffeCA/components/navDrawer.dart';
@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 final _firestoreLBDetail = Firestore.instance.collection('Leaderboard');
+final notificationHandler _pushNotificationService = notificationHandler();
 
 class FirstScreen extends StatefulWidget {
   static const String id = 'first_screen';
@@ -20,7 +21,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
   Future fetchUserDetailsFromSharedPref() async {
     var result =
-        await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
+    await SharedPreferenceHelper.getStringValue(Constants.USER_OBJECT);
     Map valueMap = json.decode(result);
     User user = User.fromJson(valueMap);
     setState(() {
@@ -28,10 +29,15 @@ class _FirstScreenState extends State<FirstScreen> {
     });
   }
 
+  Future initializeNotifications() async {
+    await _pushNotificationService.initialize();
+  }
+
   @override
   void initState() {
     super.initState();
     fetchUserDetailsFromSharedPref();
+    initializeNotifications();
   }
 
   @override
