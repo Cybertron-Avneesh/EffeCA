@@ -24,8 +24,9 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return snapshot.data ? MainWidget() : LoginPage();
             }
-            return MainWidget();
+            return FirstScreen();
           },
-        ));
+        ),
+    );
   }
 }
