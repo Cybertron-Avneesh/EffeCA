@@ -3,10 +3,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 Map<String, dynamic> message;
+String topic = 'events';
 String tokenID;
 class notificationHandler{
   final FirebaseMessaging _fcm = FirebaseMessaging();
   Future initialize() async {
+    _fcm.subscribeToTopic(topic);
     _fcm.getToken().then((deviceToken){
       print("DeviceToken: $deviceToken");
       tokenID = deviceToken;

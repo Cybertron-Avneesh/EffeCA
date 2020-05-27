@@ -37,6 +37,7 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     super.initState();
     fetchUserDetailsFromSharedPref();
+
     initializeNotifications();
   }
 
