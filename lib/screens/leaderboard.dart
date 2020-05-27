@@ -6,6 +6,9 @@ import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../Utils/constants.dart';
+import '../Utils/constants.dart';
+
 
 final _firestoreLB = Firestore.instance.collection('Leaderboard');
 
@@ -39,6 +42,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSkin,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -54,8 +58,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: kBgGradient,
           ),
         ),
@@ -88,7 +92,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                   total_point: tPoint,
                   rank: index,
                   color: kPurple,
-                  elivation: 0,
+                  elevation: 0,
                 );
               } else {
                 lbCard = LBCard(
@@ -123,29 +127,32 @@ class LBCard extends StatelessWidget {
         @required this.email,
         @required this.total_point,
         this.rank,
-        this.color, this.elivation});
+        this.color, this.elevation});
 
   final String name;
   final String email;
   final int total_point;
   final int rank;
   final Color color;
-  final double elivation;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: color ?? Colors.white,
-      elevation: elivation??20,
-      shadowColor: kShadow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: ListTile(
-        title: Text(name),
-        subtitle: Text('$total_point pts'),
-        leading: CircleAvatar(
-          child: Text(rank.toString(), style: TextStyle(fontSize: 16,
-              color: kWhite)),
-          backgroundColor: kLightPurple,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: color ?? Colors.white,
+        elevation: elevation??20,
+        shadowColor: kShadow,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: ListTile(
+          title: Text(name),
+          subtitle: Text('$total_point pts'),
+          leading: CircleAvatar(
+            child: Text(rank.toString(), style: TextStyle(fontSize: 16,
+                color: kWhite)),
+            backgroundColor: kLightPurple,
+          ),
         ),
       ),
     );

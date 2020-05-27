@@ -9,6 +9,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:EffeCA/components/drawer.dart';
 
+import '../Utils/constants.dart';
+
 Future<void> _makePhoneCall(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
@@ -55,6 +57,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
       appBar: AppBar(
         backgroundColor: kSkin,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -70,8 +73,8 @@ class _ContactScreenState extends State<ContactScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: kBgGradient,
           ),
         ),
@@ -82,6 +85,7 @@ class _ContactScreenState extends State<ContactScreen> {
             ),
             Center(
               child: RaisedButton(
+                splashColor: kShadow,
                 child: Text(
                   "Email: effervescence@iiita.ac.in",
                   style: TextStyle(

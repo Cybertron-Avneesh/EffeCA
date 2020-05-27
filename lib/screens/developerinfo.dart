@@ -36,6 +36,7 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSkin,
+        elevation: 0,
         title: Text('Developer info'),
         leading: IconButton(
           icon: Icon(
@@ -47,8 +48,8 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: kBgGradient,
           ),
         ),

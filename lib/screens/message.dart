@@ -36,6 +36,7 @@ class _MessageScreenState extends State<MessageScreen> {
 
       appBar: AppBar(
         backgroundColor: kSkin,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,

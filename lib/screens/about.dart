@@ -40,6 +40,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
       appBar: AppBar(
         backgroundColor: kSkin,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -55,8 +56,8 @@ class _AboutScreenState extends State<AboutScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: kBgGradient,
           ),
         ),

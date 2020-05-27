@@ -8,6 +8,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../Utils/constants.dart';
+import '../Utils/constants.dart';
+import '../Utils/constants.dart';
 import '../Utils/shared_preference_helper.dart';
 import 'package:EffeCA/components/drawer.dart';
 
@@ -45,6 +48,7 @@ class _EventScreenState extends State<EventScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kSkin,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -60,8 +64,8 @@ class _EventScreenState extends State<EventScreen> {
       body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               colors: kBgGradient,
             ),
           ),
@@ -133,75 +137,75 @@ class EventDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      elevation: 20,
-      shadowColor: kShadow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: EdgeInsets.only(top: 8, left: 8, right: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Card(
+        color: Colors.white,
+        elevation: 20,
+        shadowColor: kShadow,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: EdgeInsets.only( left: 8, right: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: ScreenWidth / 2,
-                      child: Text(
-                        url,
-                        maxLines: 3,
-                        style: TextStyle(color: Colors.blue, fontSize: 14),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: ScreenWidth / 2,
+                        child: Text(
+                          url,
+                          maxLines: 3,
+                          style: TextStyle(color: Colors.blue, fontSize: 14),
+                        ),
+                      )
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(points.toString(),
+                                  style: TextStyle(color: kPurple, fontSize: 30)),
+                              RotatedBox(
+                                child: Text('pts',
+                                    style: TextStyle(color: kLightPurple)),
+                                quarterTurns: -1,
+                              )
+                            ]),
                       ),
-                    )
-                  ],
-                ),
-                Spacer(),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text(points.toString(),
-                                style: TextStyle(color: kPurple, fontSize: 30)),
-                            RotatedBox(
-                              child: Text('pts',
-                                  style: TextStyle(color: kLightPurple)),
-                              quarterTurns: -1,
-                            )
-                          ]),
-                    ),
-                    FlatButton(
-                      padding: EdgeInsets.all(0),
-                      onPressed: () async {
-                        if (uids.contains(userLoad.uid)) {
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                  'You have already uploaded for this event')));
-                        } else {
-                          var tempImage = await ImagePicker.pickImage(
-                              source: ImageSource.gallery);
-                          Scaffold.of(context).showBottomSheet((context) {
-                            return Container(
-                              color: Colors.transparent,
-                              child: Container(
+                      FlatButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () async {
+                          if (uids.contains(userLoad.uid)) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                    'You have already uploaded for this event')));
+                          } else {
+                            var tempImage = await ImagePicker.pickImage(
+                                source: ImageSource.gallery);
+                            Scaffold.of(context).showBottomSheet((context) {
+                              return Container(
                                 decoration: BoxDecoration(
                                   color: Colors.purple[50],
                                   shape: BoxShape.rectangle,
@@ -210,7 +214,7 @@ class EventDetailCard extends StatelessWidget {
                                     topRight: Radius.circular(25.0),
                                   ),
                                 ),
-                                height: 650,
+                                height: 450,
                                 child: Column(
                                   children: <Widget>[
                                     Image.file(
@@ -219,7 +223,7 @@ class EventDetailCard extends StatelessWidget {
                                       height: 350,
                                     ),
                                     SizedBox(
-                                      height: 40,
+                                      height: 10,
                                     ),
                                     Row(
                                       mainAxisAlignment:
@@ -285,21 +289,24 @@ class EventDetailCard extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                              ),
-                            );
-                          });
-                        }
-                      },
-                      child: Chip(
-                        label: Text('Upload Image'),
-                        avatar: Icon(Icons.cloud_upload),
+                              );
+                            });
+                          }
+                        },
+                        child: Chip(
+                          backgroundColor: kSkin,
+                          elevation: 2,
+                          shadowColor: kShadow,
+                          label: Text('Upload Image'),
+                          avatar: Icon(Icons.cloud_upload),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
