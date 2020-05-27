@@ -60,76 +60,87 @@ class _ContactScreenState extends State<ContactScreen> {
           ),
           onPressed: widget.onMenuPressed,
         ),
+        backgroundColor: kLightPurple,
         title: Text('Contacts'),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.more_vert), onPressed: null)
           // Add Logout Feature
         ],
       ),
-      body: ListView(
-        children: <Widget>[
-          SizedBox(
-            height:5,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: kBgGradient,
           ),
-          Center(
-            child: RaisedButton(
+        ),
+        child: ListView(
+          children: <Widget>[
+            SizedBox(
+              height:5,
+            ),
+            Center(
+              child: FlatButton(
+                child: Text(
+                  "Email: effervescence@iiita.ac.in",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                  ),
+                ),
+                onPressed: ()=>_sendEmail("mailto:effervescence@iiita.ac.in"),
+
+                textColor: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height:10,
+            ),
+            Center(
               child: Text(
-                "Email: effervescence@iiita.ac.in",
+                "App Related Issue",
                 style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                  fontSize: 15,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
-              onPressed: ()=>_sendEmail("mailto:effervescence@iiita.ac.in"),
-              elevation: 1,
-              color: Colors.white,
             ),
-          ),
-          SizedBox(
-            height:10,
-          ),
-          Center(
-            child: Text(
-              "App Related Issue",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+            SizedBox(
+              height:20,
+            ),
+            ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Karan Kunwar",phoneNo: "7908175902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Text(
+                "Any Other Issue",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height:20,
-          ),
-          ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Karan Kunwar",phoneNo: "7908175902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          SizedBox(
-            height: 20,
-          ),
-          Center(
-            child: Text(
-              "Any Other Issue",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
+            SizedBox(
+              height:20,
             ),
-          ),
-          SizedBox(
-            height:20,
-          ),
-          ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-        ],
+            ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+          ],
+        ),
       ),
     );
   }
@@ -157,6 +168,7 @@ class _ContactDrawerState extends State<ContactDrawer> {
             widget.name,
             style: TextStyle(
               fontSize: 20,
+              color: Colors.white,
             ),
           ),
         ),

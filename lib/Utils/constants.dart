@@ -16,6 +16,6 @@ Color kSkin = Color(0xffF6CeCC);
 Color kWhite = Color(0xffEBE7F6);
 
 List<Color> kBgGradient =[
+  kLightPurple,
   kSkin,
-  kWhite,
 ];

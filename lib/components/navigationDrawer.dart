@@ -140,8 +140,8 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
               Color(0xFFB600FF),
               Color(0xFFD9A2EF),

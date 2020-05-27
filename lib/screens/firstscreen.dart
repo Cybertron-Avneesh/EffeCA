@@ -62,9 +62,17 @@ class _FirstScreenState extends State<FirstScreen>
                 ),
                 onPressed: widget.onMenuPressed,
               ),
+              backgroundColor: kPurple,
               title: Text('Home'),
             ),
             body: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: kBgGradient,
+                ),
+              ),
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
