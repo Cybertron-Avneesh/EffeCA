@@ -132,7 +132,7 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               Text(
-                userLoad.email??'',
+                ' '+userLoad.email??'',
                 style: TextStyle(color: Colors.white70,fontSize: 12)
               )
             ],
@@ -144,9 +144,9 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
             end: Alignment.bottomRight,
             colors: [
               Color(0xFFB600FF),
-              Color(0xFFD9A2EF),
+             // Color(0xFFD9A2EF),
               Color(0xFFF6CECC),
-              Color(0xFFEBE7F6),
+             // Color(0xFFEBE7F6),
             ],
             // tileMode: TileMode.repeated,
           ),

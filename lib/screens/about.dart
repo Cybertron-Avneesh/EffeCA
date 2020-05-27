@@ -39,6 +39,8 @@ class _AboutScreenState extends State<AboutScreen> {
     return Scaffold(
 
       appBar: AppBar(
+        backgroundColor: kSkin,
+        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.menu,
@@ -52,6 +54,13 @@ class _AboutScreenState extends State<AboutScreen> {
         ],
       ),
       body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: kBgGradient,
+          ),
+        ),
         child: ListView(
           children: <Widget>[
                   Card(

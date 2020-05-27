@@ -7,6 +7,11 @@ import 'package:EffeCA/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../Utils/constants.dart';
+import '../Utils/constants.dart';
+import '../Utils/constants.dart';
+import '../Utils/constants.dart';
+
 final _firestoreLBDetail = Firestore.instance.collection('Leaderboard');
 
 class FirstScreen extends DrawerContent {
@@ -56,20 +61,22 @@ class _FirstScreenState extends State<FirstScreen>
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
+             backgroundColor: kSkin,
+              elevation: 0,
               leading: IconButton(
                 icon: Icon(
                   Icons.menu,
                 ),
                 onPressed: widget.onMenuPressed,
               ),
-              backgroundColor: kPurple,
               title: Text('Home'),
             ),
             body: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: kBgGradient,
                 ),
               ),
