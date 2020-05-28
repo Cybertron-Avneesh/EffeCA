@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
 import 'package:EffeCA/model/user.dart';
@@ -8,8 +9,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../Utils/constants.dart';
-import '../Utils/constants.dart';
 import '../Utils/constants.dart';
 import '../Utils/shared_preference_helper.dart';
 import 'package:EffeCA/components/drawer.dart';
@@ -167,10 +166,16 @@ class EventDetailCard extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         width: ScreenWidth / 2,
-                        child: Text(
-                          url,
+                        child: RichText(
                           maxLines: 3,
-                          style: TextStyle(color: Colors.blue, fontSize: 14),
+                          text: TextSpan(
+                            text: url,
+                            style: TextStyle(color: Colors.blue, fontSize: 14),
+                            recognizer:TapGestureRecognizer()
+                              ..onTap = () { launch(url);
+                              },
+                          ),
+
                         ),
                       )
                     ],
