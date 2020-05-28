@@ -67,7 +67,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   margin: EdgeInsets.all(4),
                   elevation: 6,
                   child: Container(
-                    color: Color(0xffbfe4ff),
+                    color: Color(0xffffe2d9),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -76,7 +76,7 @@ class _AboutScreenState extends State<AboutScreen> {
                         children: <Widget>[
                           Text(
                             'About CA Program',
-                            style: TextStyle(color: Color(0xff030063), fontSize: 22.5 , fontWeight: FontWeight.w700),
+                            style: TextStyle(color: Color(0xff3b0069), fontSize: 22.5 , fontWeight: FontWeight.w700),
                           ),
                           SizedBox(height: 16.5),
                           Text(
@@ -84,7 +84,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             maxLines: 20,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.blue[900],
+                              color: Color(0xff271740),
                               fontSize: 16.5,
                               fontWeight: FontWeight.w400
                             ),
@@ -127,12 +127,12 @@ class _AboutScreenState extends State<AboutScreen> {
                 children: <Widget>[
                   Icon(
                     Icons.redeem,
-                    color: Color(0xff001173),
+                    color: Color(0xff1c0047),
                   ),
                   Text(
                     ' Prizes and Incentives',
                      style: TextStyle(
-                      color: Color(0xff001173),
+                      color: Color(0xff1c0047),
                       fontSize: 22.5,
                       fontWeight: FontWeight.w700
                      ), 
@@ -193,7 +193,7 @@ class ImageHolder extends StatelessWidget {
               Text(
                 caption,
                 style: TextStyle(
-                  color: Color(0xff001173),
+                  color: Color(0xff1c0047),
                   fontSize: 17.5,
                   fontWeight: FontWeight.w500,
                 ),
@@ -216,7 +216,7 @@ class HeadingIconCard extends StatelessWidget {
     return Card(
       elevation: 6,
       child: Container(
-        color: Color(0xffe8f3ff),
+        color: Color(0xffffe2d9),
         child: Padding(
           padding: EdgeInsets.all(5),
           child: Column(
@@ -228,11 +228,11 @@ class HeadingIconCard extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     icon,
-                    color: Color(0xff001173),
+                    color: Color(0xff330066),
                     ),
                   Text(
                     heading,
-                    style: TextStyle(color: Color(0xff001173) , fontSize: 22.5 , fontWeight: FontWeight.w700),
+                    style: TextStyle(color: Color(0xff330066) , fontSize: 22.5 , fontWeight: FontWeight.w700),
                   )
                 ],
                 ),
