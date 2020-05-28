@@ -132,7 +132,7 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               Text(
-                ' '+userLoad.email??'',
+                userLoad.email??'',
                 style: TextStyle(color: Colors.white70,fontSize: 12)
               )
             ],
