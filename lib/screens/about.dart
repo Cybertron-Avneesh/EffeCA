@@ -176,7 +176,7 @@ class _AboutScreenState extends State<AboutScreen> {
           ],
         ),
         ),
-      );
+      ));
   }
 }
 
