@@ -44,143 +44,140 @@ class _AboutScreenState extends State<AboutScreen> {
       onWillPop: _onBackPress,
       child: Scaffold(
 
-        appBar: AppBar(
-          backgroundColor: kSkin,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-            ),
-            onPressed: widget.onMenuPressed,
+      appBar: AppBar(
+        backgroundColor: kSkin,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
           ),
-          title: Text('About'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-            // Add Logout Feature
-          ],
+          onPressed: widget.onMenuPressed,
         ),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: kBgGradient,
-            ),
+        title: Text('About'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.more_vert), onPressed: null)
+          // Add Logout Feature
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: kBgGradient,
           ),
-          child: ListView(
-            children: <Widget>[
-                    Card(
-                    margin: EdgeInsets.all(4),
-                    elevation: 6,
-                    child: Container(
-                      color: Color(0xffbfe4ff),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(
-                              'About CA Program',
-                              style: TextStyle(color: Color(0xff030063), fontSize: 22.5 , fontWeight: FontWeight.w700),
+        ),
+        child: ListView(
+          children: <Widget>[
+                  Card(
+                  margin: EdgeInsets.all(4),
+                  elevation: 6,
+                  child: Container(
+                    color: Color(0xffffe2d9),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            'About CA Program',
+                            style: TextStyle(color: Color(0xff3b0069), fontSize: 22.5 , fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(height: 16.5),
+                          Text(
+                            Constants.AboutCAProgramDescription,
+                            maxLines: 20,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xff271740),
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.w400
                             ),
-                            SizedBox(height: 16.5),
-                            Text(
-                              Constants.AboutCAProgramDescription,
-                              maxLines: 20,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.blue[900],
-                                fontSize: 16.5,
-                                fontWeight: FontWeight.w400
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 12.5),
-                  CarouselSlider(
-                    options: CarouselOptions(
-                      height: 220.0,
-                      enableInfiniteScroll: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 2),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
-                      ),
-                    items: <Widget>[
-                      HeadingIconCard(
-                        icon: Icons.group_add,
-                        heading: ' Participation',
-                        content: Constants.ParticipationDesc,
-                      ),
-                      HeadingIconCard(
-                        icon: Icons.public,
-                        content: Constants.SocialMediaDesc,
-                        heading: ' Social Media',
-                      ),
-                      HeadingIconCard(
-                        icon: Icons.location_city,
-                        content: Constants.MulticityDesc,
-                        heading: ' Multicity'
-                      ),
-                    ],
                 ),
                 SizedBox(height: 12.5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.redeem,
-                      color: Color(0xff001173),
-                    ),
-                    Text(
-                      ' Prizes and Incentives',
-                       style: TextStyle(
-                        color: Color(0xff001173),
-                        fontSize: 22.5,
-                        fontWeight: FontWeight.w700
-                       ), 
-                    ),
-                  ],
-                ),
-                SizedBox(height: 4.5),
                 CarouselSlider(
                   options: CarouselOptions(
-                      height: 250.0,
-                      enableInfiniteScroll: false,
-                      autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 2),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                    height: 220.0,
+                    enableInfiniteScroll: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 2),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
                     ),
                   items: <Widget>[
-                    ImageHolder(
-                      image: 'assets/certificate.jpg',
-                      caption: 'Certificate'
+                    HeadingIconCard(
+                      icon: Icons.group_add,
+                      heading: ' Participation',
+                      content: Constants.ParticipationDesc,
                     ),
-                    ImageHolder(
-                      image: 'assets/ticket.jpg',
-                      caption: 'Pronite Tickets'
+                    HeadingIconCard(
+                      icon: Icons.public,
+                      content: Constants.SocialMediaDesc,
+                      heading: ' Social Media',
                     ),
-                    ImageHolder(
-                      image: 'assets/goodies.jpg',
-                      caption: 'Amazing Goodies'
+                    HeadingIconCard(
+                      icon: Icons.location_city,
+                      content: Constants.MulticityDesc,
+                      heading: ' Multicity'
                     ),
-                    ImageHolder(
-                      image: 'assets/intern.jpg',
-                      caption: 'Internship Opportunity'
-                    ),
-                  ]
-                ),
-            ],
-          ),
-          ),
+                  ],
+              ),
+              SizedBox(height: 12.5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.redeem,
+                    color: Color(0xff1c0047),
+                  ),
+                  Text(
+                    ' Prizes and Incentives',
+                     style: TextStyle(
+                      color: Color(0xff1c0047),
+                      fontSize: 22.5,
+                      fontWeight: FontWeight.w700
+                     ), 
+                  ),
+                ],
+              ),
+              SizedBox(height: 4.5),
+              CarouselSlider(
+                options: CarouselOptions(
+                    height: 250.0,
+                    enableInfiniteScroll: false,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 2),
+                    autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  ),
+                items: <Widget>[
+                  ImageHolder(
+                    image: 'assets/certificate.jpg',
+                    caption: 'Certificate'
+                  ),
+                  ImageHolder(
+                    image: 'assets/ticket.jpg',
+                    caption: 'Pronite Tickets'
+                  ),
+                  ImageHolder(
+                    image: 'assets/goodies.jpg',
+                    caption: 'Amazing Goodies'
+                  ),
+                  ImageHolder(
+                    image: 'assets/intern.jpg',
+                    caption: 'Internship Opportunity'
+                  ),
+                ]
+              ),
+          ],
         ),
-    );
+        ),
+      );
   }
-
-
 }
 
 class ImageHolder extends StatelessWidget {

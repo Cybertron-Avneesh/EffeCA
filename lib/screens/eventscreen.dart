@@ -152,7 +152,7 @@ class EventDetailCard extends StatelessWidget {
         shadowColor: kShadow,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
-          padding: EdgeInsets.only( left: 8, right: 5),
+          padding: EdgeInsets.only(left: 8, right: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -199,7 +199,8 @@ class EventDetailCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Text(points.toString(),
-                                  style: TextStyle(color: kPurple, fontSize: 30)),
+                                  style:
+                                      TextStyle(color: kPurple, fontSize: 30)),
                               RotatedBox(
                                 child: Text('pts',
                                     style: TextStyle(color: kLightPurple)),
@@ -217,93 +218,97 @@ class EventDetailCard extends StatelessWidget {
                           } else {
                             var tempImage = await ImagePicker.pickImage(
                                 source: ImageSource.gallery);
-                            Scaffold.of(context).showBottomSheet((context) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.purple[50],
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25.0),
-                                    topRight: Radius.circular(25.0),
+                            if (tempImage != null) {
+                              Scaffold.of(context).showBottomSheet((context) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.purple[50],
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25.0),
+                                      topRight: Radius.circular(25.0),
+                                    ),
                                   ),
-                                ),
-                                height: 450,
-                                child: Column(
-                                  children: <Widget>[
-                                    Image.file(
-                                      tempImage,
-                                      width: 160,
-                                      height: 350,
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        RawMaterialButton(
+                                  height: 450,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Image.file(
+                                        tempImage,
+                                        width: 160,
+                                        height: 350,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          RawMaterialButton(
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                                size: 50,
+                                              ),
+                                              elevation: 5,
+                                              shape: CircleBorder(),
+                                              fillColor: Colors.green,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                final StorageReference
+                                                    firebasestorageref =
+                                                    FirebaseStorage.instance
+                                                        .ref()
+                                                        .child(
+                                                            '${userLoad.email}/${url.replaceAll('/', '')}');
+                                                final StorageUploadTask task =
+                                                    firebasestorageref
+                                                        .putFile(tempImage);
+                                                Scaffold.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'Uploaded Successfully'),
+                                                ));
+                                                _firestoreEvent
+                                                    .document(
+                                                        eventID.toString())
+                                                    .updateData({
+                                                  'uids': FieldValue.arrayUnion(
+                                                      [userLoad.uid.toString()])
+                                                });
+                                                _firestoreLeaderboard
+                                                    .document(
+                                                        userLoad.uid.toString())
+                                                    .updateData({
+                                                  'total_point':
+                                                      FieldValue.increment(
+                                                          points)
+                                                });
+                                              }),
+                                          RawMaterialButton(
                                             child: Icon(
-                                              Icons.check,
+                                              Icons.close,
                                               color: Colors.white,
                                               size: 50,
                                             ),
                                             elevation: 5,
                                             shape: CircleBorder(),
-                                            fillColor: Colors.green,
+                                            fillColor: Colors.red,
                                             onPressed: () {
                                               Navigator.pop(context);
-                                              final StorageReference
-                                                  firebasestorageref =
-                                                  FirebaseStorage.instance
-                                                      .ref()
-                                                      .child(
-                                                          '${userLoad.email}/${url.replaceAll('/', '')}');
-                                              final StorageUploadTask task =
-                                                  firebasestorageref
-                                                      .putFile(tempImage);
                                               Scaffold.of(context)
                                                   .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    'Uploaded Successfully'),
+                                                content: Text('Dismissed.'),
                                               ));
-                                              _firestoreEvent
-                                                  .document(eventID.toString())
-                                                  .updateData({
-                                                'uids': FieldValue.arrayUnion(
-                                                    [userLoad.uid.toString()])
-                                              });
-                                              _firestoreLeaderboard
-                                                  .document(
-                                                      userLoad.uid.toString())
-                                                  .updateData({
-                                                'total_point':
-                                                    FieldValue.increment(points)
-                                              });
-                                            }),
-                                        RawMaterialButton(
-                                          child: Icon(
-                                            Icons.close,
-                                            color: Colors.white,
-                                            size: 50,
-                                          ),
-                                          elevation: 5,
-                                          shape: CircleBorder(),
-                                          fillColor: Colors.red,
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            Scaffold.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content: Text('Dismissed.'),
-                                            ));
-                                          },
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              );
-                            });
+                                            },
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                );
+                              });
+                            }
                           }
                         },
                         child: Chip(
