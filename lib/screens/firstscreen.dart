@@ -6,11 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../Utils/constants.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../Utils/constants.dart';
-import '../Utils/constants.dart';
-import '../Utils/constants.dart';
-import '../Utils/constants.dart';
 
 final _firestoreLBDetail = Firestore.instance.collection('Leaderboard');
 
@@ -43,23 +41,22 @@ class _FirstScreenState extends State<FirstScreen>
     controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
+
     );
 
-    animation = IntTween(begin: 50, end: 2)
-        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
 
-    print(animation.value);
+    animation = Tween().animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+
+
     controller.forward();
     controller.addListener(() {
       setState(() {});
     });
-    print(controller.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return  Scaffold(
             appBar: AppBar(
              backgroundColor: kSkin,
               elevation: 0,
@@ -70,6 +67,7 @@ class _FirstScreenState extends State<FirstScreen>
                 onPressed: widget.onMenuPressed,
               ),
               title: Text('Home'),
+
             ),
             body: Container(
               decoration: BoxDecoration(
@@ -79,30 +77,14 @@ class _FirstScreenState extends State<FirstScreen>
                   colors: kBgGradient,
                 ),
               ),
+            padding: EdgeInsets.only(top: 30),
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Stack(alignment: Alignment.center, children: <Widget>[
-                  CircularContainer(
-                    color: Colors.orange[100],
-                    dimension: 180.0,
+                  SvgPicture.asset('assets/Rank.svg',
                   ),
-                  CircularContainer(
-                    color: Colors.orange[200],
-                    dimension: 160.0,
-                  ),
-                  CircularContainer(
-                    color: Colors.orange[300],
-                    dimension: 140.0,
-                  ),
-                  CircularContainer(
-                    color: Colors.orange[400],
-                    dimension: 120.0,
-                  ),
-                  CircularContainer(
-                    color: Colors.orange[500],
-                    dimension: 100.0,
-                  ),
+
                   StreamBuilder(
                     stream: _firestoreLBDetail
                         .orderBy('total_point', descending: true)
@@ -119,13 +101,13 @@ class _FirstScreenState extends State<FirstScreen>
                       }
                       return Text(
                         rank.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 40),
+                        style: TextStyle(color: Colors.red, fontSize: 80),
                       );
                     },
                   ),
                 ]),
               ),
-            )));
+            ));
   }
 }
 

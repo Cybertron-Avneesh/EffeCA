@@ -4,6 +4,7 @@ import 'package:EffeCA/Utils/shared_preference_helper.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:EffeCA/components/navigationDrawer.dart';
 import 'package:EffeCA/components/drawer.dart';
 
 class DevInfoScreen extends DrawerContent {
@@ -33,71 +34,77 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kSkin,
-        elevation: 0,
-        title: Text('Developer info'),
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-          ),
-          onPressed: widget.onMenuPressed,
-        ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: kBgGradient,
+    Future<bool> _onBackPress() {
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+    }
+    return WillPopScope(
+      onWillPop: _onBackPress,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kSkin,
+          elevation: 0,
+          title: Text('Developer info'),
+          leading: IconButton(
+            icon: Icon(
+              Icons.menu,
+            ),
+            onPressed: widget.onMenuPressed,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Heading(
-              heading: 'Head App Operations',
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: kBgGradient,
             ),
-            Developer(
-              name: 'Ritik Harchani',
-              avatar:
-                  'https://avatars2.githubusercontent.com/u/46641571?s=400&u=f758fa76ddf23047aa50eeef64d34bea49933850&v=4',
-            ),
-            Heading(
-              heading: 'App Developers',
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Developer(
-                  name: 'Ananya Agarwal',
-                  avatar:
-                      'https://avatars3.githubusercontent.com/u/58395886?s=400&u=c87cf42ef4278e57fa2bbf5c8582f8842946fb6c&v=4',
-                ),
-                Developer(
-                  name: 'Avneesh Kumar',
-                  avatar:
-                      'https://avatars1.githubusercontent.com/u/54072374?s=400&u=18abe1ec71c0778bd9243751efc07e4928d426b4&v=4',
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Developer(
-                  name: 'Tejas Agarwal',
-                  avatar:
-                      'https://scontent.fjai1-2.fna.fbcdn.net/v/t1.0-9/86391803_820283338384126_5781836363435343872_o.jpg?_nc_cat=103&_nc_sid=09cbfe&_nc_oc=AQlrraLNJDBpFz1EaOdQZnyfb-GCR7sOsgbA1i2J0AaeP5NeEEhEYjqo9vsZb6g1PfakjwKw5BcF83BtV6nRrA5S&_nc_ht=scontent.fjai1-2.fna&oh=e26b76adcbc2e77ed9b3f2d3abb3bbc3&oe=5EE92B44',
-                ),
-                Developer(
-                  name: 'Karan Kunwar',
-                  avatar:
-                      'https://avatars3.githubusercontent.com/u/54117043?s=400&u=3074376ea0434711036f80e742a369b7ee72005c&v=4',
-                ),
-              ],
-            )
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Heading(
+                heading: 'Head App Operations',
+              ),
+              Developer(
+                name: 'Ritik Harchani',
+                avatar:
+                    'https://avatars2.githubusercontent.com/u/46641571?s=400&u=f758fa76ddf23047aa50eeef64d34bea49933850&v=4',
+              ),
+              Heading(
+                heading: 'App Developers',
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Developer(
+                    name: 'Ananya Agarwal',
+                    avatar:
+                        'https://avatars3.githubusercontent.com/u/58395886?s=400&u=c87cf42ef4278e57fa2bbf5c8582f8842946fb6c&v=4',
+                  ),
+                  Developer(
+                    name: 'Avneesh Kumar',
+                    avatar:
+                        'https://avatars1.githubusercontent.com/u/54072374?s=400&u=18abe1ec71c0778bd9243751efc07e4928d426b4&v=4',
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Developer(
+                    name: 'Tejas Agarwal',
+                    avatar:
+                        'https://scontent.fjai1-2.fna.fbcdn.net/v/t1.0-9/86391803_820283338384126_5781836363435343872_o.jpg?_nc_cat=103&_nc_sid=09cbfe&_nc_oc=AQlrraLNJDBpFz1EaOdQZnyfb-GCR7sOsgbA1i2J0AaeP5NeEEhEYjqo9vsZb6g1PfakjwKw5BcF83BtV6nRrA5S&_nc_ht=scontent.fjai1-2.fna&oh=e26b76adcbc2e77ed9b3f2d3abb3bbc3&oe=5EE92B44',
+                  ),
+                  Developer(
+                    name: 'Karan Kunwar',
+                    avatar:
+                        'https://avatars3.githubusercontent.com/u/54117043?s=400&u=3074376ea0434711036f80e742a369b7ee72005c&v=4',
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
