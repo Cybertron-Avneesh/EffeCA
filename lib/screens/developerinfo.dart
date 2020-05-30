@@ -35,7 +35,7 @@ class _DevInfoScreenState extends State<DevInfoScreen> {
   @override
   Widget build(BuildContext context) {
     Future<bool> _onBackPress() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
     }
     return WillPopScope(
       onWillPop: _onBackPress,
