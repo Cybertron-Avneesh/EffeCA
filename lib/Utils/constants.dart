@@ -18,8 +18,9 @@ Color kPurple = Color(0xffB600FF);
 Color kLightPurple = Color(0xffD9A2EF);
 Color kSkin = Color(0xffF6Cecc);
 Color kWhite = Color(0xffEBE7F6);
-
 Color kShadow = Color(0xccB600FF);
+
 List<Color> kBgGradient = [
+  kSkin,
   kSkin,
 ];

@@ -86,7 +86,7 @@ class _AboutScreenState extends State<AboutScreen> {
                             style: TextStyle(
                               color: Color(0xff271740),
                               fontSize: 16.5,
-                              fontWeight: FontWeight.w400
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
