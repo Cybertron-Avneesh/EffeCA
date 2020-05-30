@@ -55,7 +55,7 @@ class _ContactScreenState extends State<ContactScreen> {
   Widget build(BuildContext context) {
 
     Future<bool> _onBackPress() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
     }
     return WillPopScope(
       onWillPop: _onBackPress,
