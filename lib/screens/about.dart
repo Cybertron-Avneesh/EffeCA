@@ -37,7 +37,9 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     Future<bool> _onBackPress() {
-     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+
     }
     return WillPopScope(
 

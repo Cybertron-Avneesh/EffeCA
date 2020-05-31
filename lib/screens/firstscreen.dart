@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../Utils/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share/share.dart';
 
 
 final _firestoreLBDetail = Firestore.instance.collection('Leaderboard');
@@ -45,7 +46,7 @@ class _FirstScreenState extends State<FirstScreen>
     );
 
 
-    animation = Tween().animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
+    animation = CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
 
 
     controller.forward();
@@ -56,7 +57,11 @@ class _FirstScreenState extends State<FirstScreen>
 
   @override
   Widget build(BuildContext context) {
+   var ScreenSize = MediaQuery.of(context).size;
+   //Add app url
+   String appUrl='';
     return  Scaffold(
+
             appBar: AppBar(
              backgroundColor: kSkin,
               elevation: 0,
@@ -79,35 +84,132 @@ class _FirstScreenState extends State<FirstScreen>
               ),
             padding: EdgeInsets.only(top: 30),
               alignment: Alignment.topCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Stack(alignment: Alignment.center, children: <Widget>[
-                  SvgPicture.asset('assets/Rank.svg',
+              child: Column(
+                children:<Widget> [
+                  Text(
+
+                    'Hi ${userLoad.name},',
+                    style: TextStyle(color: Color(0xff383637), fontSize: 30,
+                    fontWeight: FontWeight.w900),
+                  ),
+                  Text(
+                    'Glad to have you as our campus ambassador ;)',
+                    style: TextStyle(
+                      color: Color(0xff383637),
+                      fontSize: 17
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(alignment: Alignment.center, children: <Widget>[
+                      SvgPicture.asset('assets/Rank.svg',
+                      ),
+
+                      Positioned(
+                        top: ScreenSize.height/12,
+                        child: StreamBuilder(
+                          stream: _firestoreLBDetail
+                              .orderBy('total_point', descending: true)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) return RefreshProgressIndicator();
+                            final users = snapshot.data.documents;
+                            int rank = 1;
+                            for (var user in users) {
+                              if (userLoad.uid == user.data['uid']) {
+                                break;
+                              }
+                              rank++;
+                            }
+                            return Text(
+                              rank.toString(),
+                              style: TextStyle(color: Color(0xf1D4AF37),
+                                  fontSize: animation.value*120,
+                              fontWeight: FontWeight.w900),
+                            );
+                          },
+                        ),
+                      ),
+                    ]),
                   ),
 
-                  StreamBuilder(
-                    stream: _firestoreLBDetail
-                        .orderBy('total_point', descending: true)
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) return RefreshProgressIndicator();
-                      final users = snapshot.data.documents;
-                      int rank = 1;
-                      for (var user in users) {
-                        if (userLoad.uid == user.data['uid']) {
-                          break;
-                        }
-                        rank++;
-                      }
-                      return Text(
-                        rank.toString(),
-                        style: TextStyle(color: Colors.red, fontSize: 80),
-                      );
-                    },
+                  GestureDetector(
+                    onTap:(){ Share.share('Hey, check out the Effervescence \'20 CA App \n $appUrl' );},
+                    child: Card(
+                      elevation: 7,
+
+                      margin: EdgeInsets.only(bottom: 50,right: 20,left: 20,top: 40),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        color: Color(0xff383637),
+
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              'Refer the Campus Ambassador app to your friends.',
+                              style: TextStyle(
+                                color: Color(0xffDF2AFF),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w300
+
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                                'Let them know about the Campus Ambassador Program!',
+                              style: TextStyle(
+                                  color: Color(0xffDF2AFF),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300,
+
+
+                              ),
+
+
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: Icon(
+                                    Icons.share,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+
+                                Container(
+                                  width: 2*(ScreenSize.width)/3,
+                                  child: Text(
+                                    'Share this app with your friends',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w300,
+
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+
+                        ],
+                      ),
+
+
+                    ),
                   ),
-                ]),
+                ],
               ),
-            ));
+            ),
+    );
   }
 }
 
