@@ -89,13 +89,13 @@ class _FirstScreenState extends State<FirstScreen>
                   Text(
 
                     'Hi ${userLoad.name},',
-                    style: TextStyle(color: Color(0xff383637), fontSize: 30,
+                    style: TextStyle(color:kDarkPurple, fontSize: 30,
                     fontWeight: FontWeight.w900),
                   ),
                   Text(
                     'Glad to have you as our campus ambassador ;)',
                     style: TextStyle(
-                      color: Color(0xff383637),
+                      color: kDarkPurple,
                       fontSize: 17
                     ),
                   ),
@@ -140,7 +140,7 @@ class _FirstScreenState extends State<FirstScreen>
 
                       margin: EdgeInsets.only(bottom: 50,right: 20,left: 20,top: 40),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        color: Color(0xff383637),
+                        color: kDarkPurple,
 
                       child: Column(
                         children: <Widget>[
