@@ -69,6 +69,7 @@ class _FirstScreenState extends State<FirstScreen>
               title: Text('Home'),
 
             ),
+
             body: ListView(
               children: <Widget>[
                 Container(
@@ -128,9 +129,11 @@ class _FirstScreenState extends State<FirstScreen>
                             );
                           },
                         ),
-                        
-                      ]),
-                    ),
+                      ),
+                    ]),
+                  ),
+
+                 
 
                     GestureDetector(
                       onTap:(){ Share.share('Hey, check out the Effervescence \'20 CA App \n $appUrl' );},
