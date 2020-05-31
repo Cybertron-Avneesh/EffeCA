@@ -1,4 +1,4 @@
-import 'package:flare_splash_screen/flare_splash_screen.dart';
+import 'package:EffeCA/screens/college_phonedetail.dart';
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'firstscreen.dart';
@@ -43,7 +43,8 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return MainWidget();
+              //  return MainWidget();
+              return CollegePhoneDetail(uid: uid);
               },
             ),
           );
