@@ -6,8 +6,8 @@ import 'package:EffeCA/Utils/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 final _fireStoreLB = Firestore.instance.collection('Leaderboard');
-String contactNumber = '';
-String college = '';
+String contactNumber;
+String college;
 
 class CollegePhoneDetail extends StatefulWidget {
   CollegePhoneDetail({this.uid});
@@ -23,25 +23,26 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
     return MaterialApp(
       home: Scaffold(
           body: Container(
-          decoration: BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: kBgGradient,
           ),
         ),
-          child: Column(
+        child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('College',
+                child: Text(
+                  'College',
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
-                      color: kDarkPurple
-                  ),),
+                      color: kDarkPurple),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -57,12 +58,12 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Contact Number',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                  color: kDarkPurple
-                ),
+                child: Text(
+                  'Contact Number',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                      color: kDarkPurple),
                 ),
               ),
               Padding(
@@ -84,12 +85,12 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                 child: FlatButton(
                   color: Colors.transparent,
                   child: Chip(
-                    labelPadding: EdgeInsets.only(top: 7,bottom: 7,right:7 ,left: 0),
+                    labelPadding:
+                        EdgeInsets.only(top: 7, bottom: 7, right: 7, left: 0),
                     backgroundColor: kDarkPurple,
                     label: Text(
                       'Proceed',
-                      style: TextStyle(color: Colors.white,
-                      fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     avatar: Icon(
                       Icons.arrow_forward,
@@ -97,10 +98,7 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                     ),
                   ),
                   onPressed: () {
-                    bool isContactNumberValid =
-                        ValidatePhoneNumber(contactNumber);
-                    if (isContactNumberValid && college.isNotEmpty) {
-                      print(college);
+                    if (validateEntries(contactNumber, college)) {
                       _fireStoreLB.document(widget.uid.toString()).setData({
                         'contactNumber': contactNumber,
                         'collegeName': college
@@ -112,7 +110,41 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                           },
                         ),
                       );
-                    } else if (!isContactNumberValid && college.isEmpty) {
+                    }
+                  },
+                ),
+              )
+            ]),
+      )),
+    );
+  }
+}
+
+bool validateEntries(String contactNumber, String collegeName) {
+  if (contactNumber == null || collegeName == null) {
+    if(contactNumber == null && collegeName == null)
+    Fluttertoast.showToast(msg: 'Can\'t proceed without filling them');
+    else if(contactNumber == null)
+    Fluttertoast.showToast(msg: 'Enter Contact Number');
+    else if(collegeName == null)
+    Fluttertoast.showToast(msg: 'Enter College Name');
+  } 
+  else if (contactNumber != null && collegeName != null) {
+    Pattern pattern = r'^(?:[+])?[0-9, ]{10,14}$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(contactNumber)) {
+      Fluttertoast.showToast(
+          msg:
+              'Enter a valid phone number. ex- +91 1234567899, 123456789, etc.');
+      return false;
+    } 
+    else
+      return true;
+  }
+  return false;
+}
+
+/*else if (!isContactNumberValid && college==null) {
                       Fluttertoast.showToast(
                         msg: 'Enter valid phone number and your college',
                       );
@@ -124,25 +156,4 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                       Fluttertoast.showToast(
                         msg: 'Enter your college',
                       );
-                    }
-                  },
-                ),
-              )
-            ]),
-      )),
-    );
-  }
-}
-
-bool ValidatePhoneNumber(String contactNumber) {
-  if (contactNumber.isNotEmpty) {
-    if (contactNumber.length < 10 ||
-        contactNumber.contains(new RegExp(r'[a-z]')) ||
-        contactNumber.contains(new RegExp(r'[A-Z]'))) {
-      return false;
-    }
-  } else if (contactNumber.length >= 10 &&
-      contactNumber.contains(new RegExp(r'[0-9]'))) {
-    return true;
-  }
-}
+                    }*/
