@@ -1,8 +1,6 @@
 import 'package:EffeCA/screens/college_phonedetail.dart';
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
-import 'firstscreen.dart';
-import 'package:EffeCA/components/navigationDrawer.dart';
 
 class LoginPage extends StatefulWidget {
   @override
