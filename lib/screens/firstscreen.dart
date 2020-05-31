@@ -80,7 +80,7 @@ class _FirstScreenState extends State<FirstScreen>
             child: Column(
               children: <Widget>[
                 Text(
-                  'Hi ${userLoad.name},',
+                  'Hi ${userLoad.name??''},',
                   style: TextStyle(
                       color: Color(0xff383637),
                       fontSize: 30,
