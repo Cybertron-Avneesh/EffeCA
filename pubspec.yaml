@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^0.5.7+2
   flutter_svg: ^0.17.4
   share: ^0.6.4+3
+  fluttertoast: ^4.0.1
 
   eva_icons_flutter: ^2.0.0
   url_launcher: ^5.4.7
@@ -42,7 +43,8 @@ dependencies:
   image_picker: ^0.6.6+4
   firebase_storage: ^3.1.5
   cloud_firestore: ^0.13.5
-
+  flare_splash_screen: ^3.0.1
+  flare_flutter: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +62,14 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/loading.flr
+    - assets/Rank.svg
+    - assets/certificate.jpg
+    - assets/goodies.jpg
+    - assets/google_logo.png
+    - assets/intern.jpg
+    - assets/ticket.jpg
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
