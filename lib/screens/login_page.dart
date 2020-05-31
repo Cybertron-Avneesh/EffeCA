@@ -1,7 +1,9 @@
+import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'firstscreen.dart';
 import 'package:EffeCA/components/navigationDrawer.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,13 +15,17 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: Color(0xffF6CECC),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlutterLogo(size: 150),
+              SizedBox(
+                height: 200,
+                  width: 200,
+                  child: FlareActor("assets/loading.flr", animation:'Alarm'),
+              ),
               SizedBox(height: 50),
               _signInButton(),
             ],

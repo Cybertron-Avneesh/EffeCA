@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-
+import 'package:EffeCA/components/navigationDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -36,7 +36,15 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    Future<bool> _onBackPress() {
+
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+
+    }
+    return WillPopScope(
+
+      onWillPop: _onBackPress,
+      child: Scaffold(
 
       appBar: AppBar(
         backgroundColor: kSkin,
@@ -170,7 +178,7 @@ class _AboutScreenState extends State<AboutScreen> {
           ],
         ),
         ),
-      );
+      ));
   }
 }
 
@@ -193,7 +201,7 @@ class ImageHolder extends StatelessWidget {
               Text(
                 caption,
                 style: TextStyle(
-                  color: Color(0xff1c0047),
+                  color: Color(0xff001173),
                   fontSize: 17.5,
                   fontWeight: FontWeight.w500,
                 ),
@@ -216,7 +224,7 @@ class HeadingIconCard extends StatelessWidget {
     return Card(
       elevation: 6,
       child: Container(
-        color: Color(0xffffe2d9),
+        color: Color(0xffe8f3ff),
         child: Padding(
           padding: EdgeInsets.all(5),
           child: Column(
@@ -228,11 +236,11 @@ class HeadingIconCard extends StatelessWidget {
                 children: <Widget>[
                   Icon(
                     icon,
-                    color: Color(0xff330066),
+                    color: Color(0xff001173),
                     ),
                   Text(
                     heading,
-                    style: TextStyle(color: Color(0xff330066) , fontSize: 22.5 , fontWeight: FontWeight.w700),
+                    style: TextStyle(color: Color(0xff001173) , fontSize: 22.5 , fontWeight: FontWeight.w700),
                   )
                 ],
                 ),

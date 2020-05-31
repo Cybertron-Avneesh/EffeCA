@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
-
+import 'package:EffeCA/components/navigationDrawer.dart';
 import 'package:EffeCA/model/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,96 +53,102 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
 
-      appBar: AppBar(
-        backgroundColor: kSkin,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-          ),
-          onPressed: widget.onMenuPressed,
-        ),
-        title: Text('Contacts'),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-          // Add Logout Feature
-        ],
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: kBgGradient,
-          ),
-        ),
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height:5,
+    Future<bool> _onBackPress() {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+    }
+    return WillPopScope(
+      onWillPop: _onBackPress,
+      child: Scaffold(
+
+        appBar: AppBar(
+          backgroundColor: kSkin,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.menu,
             ),
-            Center(
-              child: RaisedButton(
-                splashColor: kShadow,
+            onPressed: widget.onMenuPressed,
+          ),
+          title: Text('Contacts'),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
+            // Add Logout Feature
+          ],
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: kBgGradient,
+            ),
+          ),
+          child: ListView(
+            children: <Widget>[
+              SizedBox(
+                height:5,
+              ),
+              Center(
+                child: FlatButton(
+                  splashColor: kShadow,
+                  child: Text(
+                    "Email: effervescence@iiita.ac.in",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.lightBlue,
+                      fontSize: 16,
+                      ),
+                  ),
+                  onPressed: ()=>_sendEmail("mailto:effervescence@iiita.ac.in"),
+                  color: kSkin,
+                ),
+              ),
+              SizedBox(
+                height:10,
+              ),
+              Center(
                 child: Text(
-                  "Email: effervescence@iiita.ac.in",
+                  "App Related Issue",
                   style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black87,
-                    fontSize: 15,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                onPressed: ()=>_sendEmail("mailto:effervescence@iiita.ac.in"),
-                elevation: 1,
-                color: Colors.white,
               ),
-            ),
-            SizedBox(
-              height:10,
-            ),
-            Center(
-              child: Text(
-                "App Related Issue",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+              SizedBox(
+                height:20,
+              ),
+              ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Karan Kunwar",phoneNo: "7908175902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: Text(
+                  "Any Other Issue",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height:20,
-            ),
-            ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Karan Kunwar",phoneNo: "7908175902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Text(
-                "Any Other Issue",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+              SizedBox(
+                height:20,
               ),
-            ),
-            SizedBox(
-              height:20,
-            ),
-            ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-            ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
-          ],
+              ContactDrawer(name: "Ritik Harchani",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Tejas",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Avneesh Kumar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Karan Kunwar",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+              ContactDrawer(name: "Ananya",phoneNo: "7908195902",email: "karankunwar59@gmail.com"),
+            ],
+          ),
         ),
       ),
     );

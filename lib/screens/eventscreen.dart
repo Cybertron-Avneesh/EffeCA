@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../Utils/constants.dart';
+import 'package:EffeCA/components/navigationDrawer.dart';
 import '../Utils/shared_preference_helper.dart';
 import 'package:EffeCA/components/drawer.dart';
 
@@ -43,79 +44,86 @@ class _EventScreenState extends State<EventScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     ScreenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kSkin,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-          ),
-          onPressed: widget.onMenuPressed,
-        ),
-        title: Text('Events'),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-          // Add Logout Feature
-        ],
-      ),
-      body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: kBgGradient,
+    Future<bool> _onBackPress(){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+    }
+    return WillPopScope(
+      onWillPop: _onBackPress,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kSkin,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.menu,
             ),
+            onPressed: widget.onMenuPressed,
           ),
-          child: Column(
-            children: <Widget>[
-              StreamBuilder(
-                stream: _firestoreEvent.snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container(
-                      alignment: Alignment.center,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.lightBlueAccent,
+          title: Text('Events'),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
+            // Add Logout Feature
+          ],
+        ),
+        body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: kBgGradient,
+              ),
+            ),
+            child: Column(
+              children: <Widget>[
+                StreamBuilder(
+                  stream: _firestoreEvent.snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container(
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.lightBlueAccent,
+                        ),
+                      );
+                    }
+
+                    final eventDetails = snapshot.data.documents;
+                    List<EventDetailCard> eventDetailCards = [];
+                    for (var eventDetail in eventDetails) {
+                      // Note - eventID to kept same as documentID while creating a new event
+
+                      final eventID = eventDetail.data['eventID'];
+                      final eventTitle = eventDetail.data['title'];
+                      final point = eventDetail.data['point'];
+                      final url = eventDetail.data['url'];
+                      final uids = eventDetail.data['uids'];
+
+                      final eventdetailcard = EventDetailCard(
+                        eventID: eventID,
+                        title: eventTitle,
+                        points: point,
+                        url: url,
+                        uids: uids,
+                      );
+                      eventDetailCards.add(eventdetailcard);
+                    }
+                    print(userLoad);
+                    return Expanded(
+                      child: ListView(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 20.0,
+                        ),
+                        children: eventDetailCards,
                       ),
                     );
-                  }
-
-                  final eventDetails = snapshot.data.documents;
-                  List<EventDetailCard> eventDetailCards = [];
-                  for (var eventDetail in eventDetails) {
-                    // Note - eventID to kept same as documentID while creating a new event
-
-                    final eventID = eventDetail.data['eventID'];
-                    final eventTitle = eventDetail.data['title'];
-                    final point = eventDetail.data['point'];
-                    final url = eventDetail.data['url'];
-                    final uids = eventDetail.data['uids'];
-
-                    final eventdetailcard = EventDetailCard(
-                      eventID: eventID,
-                      title: eventTitle,
-                      points: point,
-                      url: url,
-                      uids: uids,
-                    );
-                    eventDetailCards.add(eventdetailcard);
-                  }
-                  print(userLoad);
-                  return Expanded(
-                    child: ListView(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 20.0,
-                      ),
-                      children: eventDetailCards,
-                    ),
-                  );
-                },
-              )
-            ],
-          )),
+                  },
+                )
+              ],
+            )),
+      ),
     );
   }
 }
@@ -170,7 +178,7 @@ class EventDetailCard extends StatelessWidget {
                           maxLines: 3,
                           text: TextSpan(
                             text: url,
-                            style: TextStyle(color: Colors.blue, fontSize: 14),
+                            style: TextStyle(color: Colors.blue, fontSize: 14,),
                             recognizer:TapGestureRecognizer()
                               ..onTap = () { launch(url);
                               },
