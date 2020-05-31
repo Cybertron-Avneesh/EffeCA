@@ -44,11 +44,7 @@ class _FirstScreenState extends State<FirstScreen>
       duration: Duration(seconds: 2),
 
     );
-
-
     animation = CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
-
-
     controller.forward();
     controller.addListener(() {
       setState(() {});
@@ -61,7 +57,6 @@ class _FirstScreenState extends State<FirstScreen>
    //Add app url
    String appUrl='';
     return  Scaffold(
-
             appBar: AppBar(
              backgroundColor: kSkin,
               elevation: 0,
@@ -74,40 +69,45 @@ class _FirstScreenState extends State<FirstScreen>
               title: Text('Home'),
 
             ),
-            body: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: kBgGradient,
+
+            body: ListView(
+              children: <Widget>[
+                Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: kBgGradient,
+                  ),
                 ),
-              ),
-            padding: EdgeInsets.only(top: 30),
-              alignment: Alignment.topCenter,
-              child: Column(
-                children:<Widget> [
-                  Text(
-
-                    'Hi ${userLoad.name},',
-                    style: TextStyle(color:kDarkPurple, fontSize: 30,
-                    fontWeight: FontWeight.w900),
-                  ),
-                  Text(
-                    'Glad to have you as our campus ambassador ;)',
-                    style: TextStyle(
-                      color: kDarkPurple,
-                      fontSize: 17
+              padding: EdgeInsets.only(top: 30),
+                alignment: Alignment.topCenter,
+                child: Column(
+                  children:<Widget> [
+                    Text(
+                      'Hi ${userLoad.name},',
+                      style: TextStyle(color: Color(0xff383637), fontSize: 30,
+                      fontWeight: FontWeight.w900),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(alignment: Alignment.center, children: <Widget>[
-                      SvgPicture.asset('assets/Rank.svg',
+                    Text(
+                      'Glad to have you as our campus ambassador.',
+                      style: TextStyle(
+                        color: Color(0xff383637),
+                        fontSize: 17
                       ),
-
-                      Positioned(
-                        top: ScreenSize.height/12,
-                        child: StreamBuilder(
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(alignment: Alignment.center,
+                          children: <Widget>[
+                        SizedBox(
+                          height: 300,
+                          child: SvgPicture.asset('assets/Rank.svg'),
+                        ),
+                        StreamBuilder(
                           stream: _firestoreLBDetail
                               .orderBy('total_point', descending: true)
                               .snapshots(),
@@ -125,7 +125,7 @@ class _FirstScreenState extends State<FirstScreen>
                               rank.toString(),
                               style: TextStyle(color: Color(0xf1D4AF37),
                                   fontSize: animation.value*120,
-                              fontWeight: FontWeight.w900),
+                                  fontWeight: FontWeight.w900),
                             );
                           },
                         ),
@@ -133,81 +133,80 @@ class _FirstScreenState extends State<FirstScreen>
                     ]),
                   ),
 
-                  GestureDetector(
-                    onTap:(){ Share.share('Hey, check out the Effervescence \'20 CA App \n $appUrl' );},
-                    child: Card(
-                      elevation: 7,
+                 
 
-                      margin: EdgeInsets.only(bottom: 50,right: 20,left: 20,top: 40),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        color: kDarkPurple,
+                    GestureDetector(
+                      onTap:(){ Share.share('Hey, check out the Effervescence \'20 CA App \n $appUrl' );},
+                      child: Card(
+                        elevation: 7,
 
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              'Refer the Campus Ambassador app to your friends.',
-                              style: TextStyle(
-                                color: Color(0xffDF2AFF),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w300
+                        margin: EdgeInsets.only(bottom: 50,right: 20,left: 20,top: 40),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          color: Color(0xff383637),
 
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                                'Let them know about the Campus Ambassador Program!',
-                              style: TextStyle(
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                'Refer the Campus Ambassador app to your friends.',
+                                style: TextStyle(
                                   color: Color(0xffDF2AFF),
                                   fontSize: 15,
-                                  fontWeight: FontWeight.w300,
-
-
-                              ),
-
-
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: Icon(
-                                    Icons.share,
-                                    color: Colors.blue,
-                                  ),
+                                  fontWeight: FontWeight.w300
                                 ),
-
-                                Container(
-                                  width: 2*(ScreenSize.width)/3,
-                                  child: Text(
-                                    'Share this app with your friends',
-                                    style: TextStyle(
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                  'Let them know about the Campus Ambassador Program!',
+                                style: TextStyle(
+                                    color: Color(0xffDF2AFF),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Icon(
+                                      Icons.share,
                                       color: Colors.blue,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w300,
-
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                          )
 
-                        ],
+                                  Container(
+                                    width: 2*(ScreenSize.width)/3,
+                                    child: Text(
+                                      'Share this app with your friends',
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w300,
+
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+
+                          ],
+                        ),
+
+
                       ),
-
-
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              ],
             ),
     );
   }

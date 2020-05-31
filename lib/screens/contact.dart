@@ -90,19 +90,18 @@ class _ContactScreenState extends State<ContactScreen> {
                 height:5,
               ),
               Center(
-                child: RaisedButton(
+                child: FlatButton(
                   splashColor: kShadow,
                   child: Text(
                     "Email: effervescence@iiita.ac.in",
                     style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black87,
-                      fontSize: 15,
-                    ),
+                      fontWeight: FontWeight.w600,
+                      color: Colors.lightBlue,
+                      fontSize: 16,
+                      ),
                   ),
                   onPressed: ()=>_sendEmail("mailto:effervescence@iiita.ac.in"),
-                  elevation: 1,
-                  color: Colors.white,
+                  color: kSkin,
                 ),
               ),
               SizedBox(
@@ -178,6 +177,7 @@ class _ContactDrawerState extends State<ContactDrawer> {
             widget.name,
             style: TextStyle(
               fontSize: 20,
+              color: Colors.white,
             ),
           ),
         ),

@@ -1,10 +1,12 @@
 import 'package:EffeCA/components/navigationDrawer.dart';
 import 'package:EffeCA/screens/firstscreen.dart';
+import 'package:EffeCA/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:EffeCA/screens/login_page.dart';
 import 'screens/firstscreen.dart';
 import 'Utils/constants.dart';
 import 'Utils/shared_preference_helper.dart';
+import 'package:flare_splash_screen/flare_splash_screen.dart';
 
 void main() {
   runApp(MyApp());

@@ -20,9 +20,11 @@ Color kSkin = Color(0xffF6Cecc);
 Color kWhite = Color(0xffEBE7F6);
 Color kShadow = Color(0xccB600FF);
 Color kDarkPurple=Color(0xff383637);
+
+
 List<Color> kBgGradient = [
   kSkin,
-  kWhite,
+  kSkin,
 ];
 const kTextFieldDecoration = InputDecoration(
   filled: true,
