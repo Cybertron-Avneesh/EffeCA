@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../Utils/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share/share.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 final _firestoreLBDetail = Firestore.instance.collection('Leaderboard');
 
@@ -88,17 +89,18 @@ class _FirstScreenState extends State<FirstScreen>
                 ),
                 Text(
                   'Glad to have you as our campus ambassador.',
-                  style: TextStyle(color: Color(0xff383637), fontSize: 17),
+                  style: TextStyle(color: Color(0xff383637), fontSize: 15),
                 ),
                 SizedBox(
                   height: 10.0,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(top:8.0,left: 8.0,right: 8.0),
                   child: Stack(alignment: Alignment.center, children: <Widget>[
                     SizedBox(
-                      height: 300,
-                      child: SvgPicture.asset('assets/Rank.svg'),
+                      height: 280,
+                      width: 280,
+                      child: FlareActor("assets/scoring.flr", animation:'active'),
                     ),
                     StreamBuilder(
                       stream: _firestoreLBDetail
@@ -118,7 +120,7 @@ class _FirstScreenState extends State<FirstScreen>
                         return Text(
                           rank.toString(),
                           style: TextStyle(
-                              color: Color(0xf1D4AF37),
+                              color: Colors.black54,
                               fontSize: animation.value * 120,
                               fontWeight: FontWeight.w900),
                         );
