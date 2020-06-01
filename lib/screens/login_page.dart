@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
       color: Colors.white,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
               return CollegePhoneDetail(uid: uid);
