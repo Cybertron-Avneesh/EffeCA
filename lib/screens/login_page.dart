@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -36,12 +37,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
+      color: Colors.white,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).pushReplacement(
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-              //  return MainWidget();
               return CollegePhoneDetail(uid: uid);
               },
             ),

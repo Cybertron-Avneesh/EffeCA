@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:EffeCA/Utils/constants.dart';
 import 'package:EffeCA/Utils/shared_preference_helper.dart';
 import 'package:EffeCA/components/navigationDrawer.dart';
@@ -224,7 +223,7 @@ class HeadingIconCard extends StatelessWidget {
     return Card(
       elevation: 6,
       child: Container(
-        color: Color(0xffffe2d9),
+        color: Color(0xffe8f3ff),
         child: Padding(
           padding: EdgeInsets.all(5),
           child: Column(
