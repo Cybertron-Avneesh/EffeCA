@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'sign_in.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -21,11 +20,10 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 200,
-                  width: 200,
-                  child: FlareActor("assets/loading.flr", animation:'Alarm'),
+                height: 300,
+                  width: 400,
+                  child: FlareActor("assets/BobMinion.flr", animation:'Wave'),
               ),
-              SizedBox(height: 50),
               _signInButton(),
             ],
           ),

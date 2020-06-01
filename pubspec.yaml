@@ -45,6 +45,7 @@ dependencies:
   cloud_firestore: ^0.13.5
   flare_splash_screen: ^3.0.1
   flare_flutter: ^2.0.3
+  nima: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,8 @@ flutter:
     - assets/google_logo.png
     - assets/intern.jpg
     - assets/ticket.jpg
+    - assets/scoring.flr
+    - assets/BobMinion.flr
 
   # To add assets to your application, add an assets section, like this:
   # assets:
