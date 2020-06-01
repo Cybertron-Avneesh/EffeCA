@@ -6,8 +6,8 @@ import 'package:EffeCA/Utils/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 final _fireStoreLB = Firestore.instance.collection('Leaderboard');
-String contactNumber = '';
-String college = '';
+String contactNumber;
+String college ;
 
 class CollegePhoneDetail extends StatefulWidget {
   CollegePhoneDetail({this.uid});
@@ -99,7 +99,7 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                   onPressed: () {
                     bool isContactNumberValid =
                         ValidatePhoneNumber(contactNumber);
-                    if (isContactNumberValid && college.isNotEmpty) {
+                    if (isContactNumberValid && !college.isEmpty) {
                       print(college);
                       _fireStoreLB.document(widget.uid.toString()).setData({
                         'contactNumber': contactNumber,
@@ -112,7 +112,8 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                           },
                         ),
                       );
-                    } else if (!isContactNumberValid && college.isEmpty) {
+                    }
+                     if (!isContactNumberValid && college.isEmpty) {
                       Fluttertoast.showToast(
                         msg: 'Enter valid phone number and your college',
                       );
@@ -120,7 +121,8 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
                       Fluttertoast.showToast(
                         msg: 'Enter valid phone number',
                       );
-                    } else {
+                    }
+                    else if(college.isEmpty && isContactNumberValid) {
                       Fluttertoast.showToast(
                         msg: 'Enter your college',
                       );
@@ -135,12 +137,12 @@ class _CollegePhoneDetailState extends State<CollegePhoneDetail> {
 }
 
 bool ValidatePhoneNumber(String contactNumber) {
-  if (contactNumber.isNotEmpty) {
-    if (contactNumber.length < 10 ||
+
+    if ((contactNumber.length < 10 ||
         contactNumber.contains(new RegExp(r'[a-z]')) ||
-        contactNumber.contains(new RegExp(r'[A-Z]'))) {
+        contactNumber.contains(new RegExp(r'[A-Z]')))&& !contactNumber.isEmpty) {
       return false;
-    }
+
   } else if (contactNumber.length >= 10 &&
       contactNumber.contains(new RegExp(r'[0-9]'))) {
     return true;

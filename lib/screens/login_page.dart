@@ -1,8 +1,6 @@
 import 'package:EffeCA/screens/college_phonedetail.dart';
 import 'package:flutter/material.dart';
 import 'sign_in.dart';
-import 'firstscreen.dart';
-import 'package:EffeCA/components/navigationDrawer.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
               //  return MainWidget();

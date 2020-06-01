@@ -56,23 +56,54 @@ class _FirstScreenState extends State<FirstScreen>
    var ScreenSize = MediaQuery.of(context).size;
    //Add app url
    String appUrl='';
-    return  Scaffold(
-            appBar: AppBar(
-             backgroundColor: kSkin,
-              elevation: 0,
-              leading: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                ),
-                onPressed: widget.onMenuPressed,
-              ),
-              title: Text('Home'),
 
+   Future<bool> _onBackPress() {
+     return showDialog(
+       context: context,
+       builder: (context) => new AlertDialog(
+         title: Text('Are you sure?'),
+         content: Text('Do you want Logout'),
+         actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: GestureDetector(
+               onTap: () => Navigator.pop(context,true),
+               child: Text("NO"),
+           ),
             ),
+           SizedBox(height: 16),
+           Padding(
+             padding: const EdgeInsets.all(5.0),
+             child: GestureDetector(
+               onTap: () {
 
-            body: ListView(
-              children: <Widget>[
-                Container(
+               },
+               child: Text("YES"),
+             ),
+           ),
+         ],
+       ),
+     ) ??
+         false;
+   }
+
+    return  WillPopScope(
+      onWillPop: _onBackPress,
+      child: Scaffold(
+              appBar: AppBar(
+               backgroundColor: kSkin,
+                elevation: 0,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.menu,
+                  ),
+                  onPressed: widget.onMenuPressed,
+                ),
+                title: Text('Home'),
+
+              ),
+
+              body: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -80,153 +111,143 @@ class _FirstScreenState extends State<FirstScreen>
                     colors: kBgGradient,
                   ),
                 ),
-              padding: EdgeInsets.only(top: 30),
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children:<Widget> [
-                    Text(
-                      'Hi ${userLoad.name},',
-                      style: TextStyle(color: Color(0xff383637), fontSize: 30,
-                      fontWeight: FontWeight.w900),
-                    ),
-                    Text(
-                      'Glad to have you as our campus ambassador.',
-                      style: TextStyle(
-                        color: Color(0xff383637),
-                        fontSize: 17
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(alignment: Alignment.center,
-                          children: <Widget>[
-                        SizedBox(
-                          height: 300,
-                          child: SvgPicture.asset('assets/Rank.svg'),
-                        ),
-                        StreamBuilder(
-                          stream: _firestoreLBDetail
-                              .orderBy('total_point', descending: true)
-                              .snapshots(),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) return RefreshProgressIndicator();
-                            final users = snapshot.data.documents;
-                            int rank = 1;
-                            for (var user in users) {
-                              if (userLoad.uid == user.data['uid']) {
-                                break;
-                              }
-                              rank++;
-                            }
-                            return Text(
-                              rank.toString(),
-                              style: TextStyle(color: Color(0xf1D4AF37),
-                                  fontSize: animation.value*120,
-                                  fontWeight: FontWeight.w900),
-                            );
-                          },
-                        ),
-                      ),
-                    ]),
+
+                child: Container(
+                  padding: EdgeInsets.only(top: 30),
+                 alignment: Alignment.topCenter,
+                 child: SingleChildScrollView(
+                   child: Column(
+                     children:<Widget> [
+                       Text(
+                         'Hi ${userLoad.name},',
+                         style: TextStyle(color: Color(0xff383637), fontSize: 30,
+                         fontWeight: FontWeight.w900),
+                       ),
+                       Text(
+                         'Glad to have you as our campus ambassador.',
+                         style: TextStyle(
+                           color: Color(0xff383637),
+                           fontSize: 17
+                         ),
+                       ),
+                       SizedBox(
+                         height: 10.0,
+                       ),
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: Stack(alignment: Alignment.center,
+                             children: <Widget>[
+                           SizedBox(
+                             height: 300,
+                             child: SvgPicture.asset('assets/Rank.svg'),
+                           ),
+                           Positioned(
+                            top: 50,
+
+
+                             child: StreamBuilder(
+                               stream: _firestoreLBDetail
+                                   .orderBy('total_point', descending: true)
+                                   .snapshots(),
+                               builder: (context, snapshot) {
+                                 if (!snapshot.hasData) return RefreshProgressIndicator();
+                                 final users = snapshot.data.documents;
+                                 int rank = 1;
+                                 for (var user in users) {
+                                   if (userLoad.uid == user.data['uid']) {
+                                     break;
+                                   }
+                                   rank++;
+                                 }
+                                 return Text(
+                                   rank.toString(),
+                                   style: TextStyle(color: Color(0xf1D4AF37),
+                                       fontSize: animation.value*130,
+                                       fontWeight: FontWeight.w900),
+                                 );
+                               },
+                             ),
+                           ),
+
+                       ]
+                   ),
+                     ),
+
+                       GestureDetector(
+                         onTap:(){ Share.share('Hey, check out the Effervescence \'20 CA App \n $appUrl' );},
+                         child: Card(
+                           elevation: 7,
+
+                           margin: EdgeInsets.only(bottom: 50,right: 20,left: 20,top: 40),
+                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                             color: Color(0xff383637),
+
+                           child: Column(
+                             children: <Widget>[
+                               Padding(
+                                 padding: const EdgeInsets.all(12.0),
+                                 child: Text(
+                                   'Refer the Campus Ambassador app to your friends.',
+                                   style: TextStyle(
+                                     color: Color(0xffDF2AFF),
+                                     fontSize: 15,
+                                     fontWeight: FontWeight.w300
+                                   ),
+                                 ),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.all(8.0),
+                                 child: Text(
+                                     'Let them know about the Campus Ambassador Program!',
+                                   style: TextStyle(
+                                       color: Color(0xffDF2AFF),
+                                       fontSize: 15,
+                                       fontWeight: FontWeight.w300,
+                                   ),
+                                 ),
+                               ),
+                               Padding(
+                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                                 child: Row(
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                   children: <Widget>[
+                                     Padding(
+                                       padding: const EdgeInsets.only(right: 15),
+                                       child: Icon(
+                                         Icons.share,
+                                         color: Colors.blue,
+                                       ),
+                                     ),
+
+                                     Container(
+                                       width: 2*(ScreenSize.width)/3,
+                                       child: Text(
+                                         'Share this app with your friends',
+                                         style: TextStyle(
+                                           color: Colors.blue,
+                                           fontSize: 17,
+                                           fontWeight: FontWeight.w300,
+
+                                         ),
+                                       ),
+                                     )
+                                   ],
+                                 ),
+                               )
+
+                             ],
+                           ),
+
+
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
                   ),
-
-                 
-
-                    GestureDetector(
-                      onTap:(){ Share.share('Hey, check out the Effervescence \'20 CA App \n $appUrl' );},
-                      child: Card(
-                        elevation: 7,
-
-                        margin: EdgeInsets.only(bottom: 50,right: 20,left: 20,top: 40),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          color: Color(0xff383637),
-
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Text(
-                                'Refer the Campus Ambassador app to your friends.',
-                                style: TextStyle(
-                                  color: Color(0xffDF2AFF),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w300
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  'Let them know about the Campus Ambassador Program!',
-                                style: TextStyle(
-                                    color: Color(0xffDF2AFF),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 15),
-                                    child: Icon(
-                                      Icons.share,
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-
-                                  Container(
-                                    width: 2*(ScreenSize.width)/3,
-                                    child: Text(
-                                      'Share this app with your friends',
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w300,
-
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )
-
-                          ],
-                        ),
-
-
-                      ),
-                    ),
-                  ],
-                ),
               ),
-              ],
-            ),
-    );
-  }
-}
-
-class CircularContainer extends StatelessWidget {
-  const CircularContainer({Key key, this.color, this.dimension})
-      : super(key: key);
-  final Color color;
-  final dimension;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(100)),
-      child: Container(
-        width: dimension,
-        height: dimension,
-        color: color,
       ),
     );
   }
 }
+
