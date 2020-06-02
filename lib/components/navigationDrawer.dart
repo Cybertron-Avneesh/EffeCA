@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Utils/constants.dart';
@@ -13,7 +12,7 @@ import 'package:EffeCA/screens/leaderboard.dart';
 import 'package:EffeCA/screens/message.dart';
 import 'package:EffeCA/screens/eventscreen.dart';
 import 'package:EffeCA/screens/firstscreen.dart';
-
+import 'package:EffeCA/screens/sign_in.dart';
 class MainWidget extends StatefulWidget {
   MainWidget({Key key, this.title}) : super(key: key);
   final String title;
@@ -35,6 +34,7 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
     });
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -43,58 +43,47 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
       initialPage: FirstScreen(),
       items: [
         DrawerItem(
-          text: Text('Home', style: TextStyle(color: Colors.white)),
-          icon: Icon(Icons.home, color: Colors.white),
+          text: 'Home',
+          icon: Icons.home,
           page: FirstScreen(),
         ),
         DrawerItem(
-          text: Text(
-            'Events',
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Icon(Icons.event, color: Colors.white),
+          text: 'Events',
+          icon: Icons.event,
           page: EventScreen(),
         ),
         DrawerItem(
-          text: Text(
-            'LeaderBoard',
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Icon(Icons.group, color: Colors.white),
+          text: 'LeaderBoard',
+          icon: Icons.group,
           page: LeaderboardScreen(),
         ),
         DrawerItem(
-          text: Text(
-            'About',
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Icon(Icons.info_outline, color: Colors.white),
+          text: 'About',
+
+          icon: Icons.info_outline,
           page: AboutScreen(),
         ),
         DrawerItem(
-          text: Text(
-            'Message',
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Icon(Icons.message, color: Colors.white),
+          text: 'Message',
+          icon: Icons.message,
           page: MessageScreen(),
         ),
         DrawerItem(
-          text: Text(
-            'Developer Info',
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Icon(Icons.info, color: Colors.white),
+          text: 'Developer Info',
+          icon: Icons.info,
           page: DevInfoScreen(),
         ),
         DrawerItem(
-          text: Text(
-            'Contact',
-            style: TextStyle(color: Colors.white),
-          ),
-          icon: Icon(Icons.call, color: Colors.white),
+          text: 'Contact',
+          icon: Icons.call,
           page: ContactScreen(),
         ),
+        DrawerItem(
+          text:'Logout',
+          icon: Icons.power_settings_new,
+          onPressed:signOutGoogle,
+          page: FirstScreen(),
+        )
       ],
     );
   }

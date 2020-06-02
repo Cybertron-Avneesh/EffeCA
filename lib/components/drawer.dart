@@ -21,8 +21,8 @@ class DrawerContent extends StatefulWidget {
 class DrawerItem extends StatelessWidget {
   DrawerItem({this.onPressed, this.icon, this.text, this.page});
   Function onPressed;
-  Widget icon;
-  Widget text;
+  IconData icon;
+  String text;
 
   DrawerContent page;
 
@@ -41,9 +41,18 @@ class DrawerItem extends StatelessWidget {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.only(left: 16, right: 8),
-                  child: icon,
+                  child: Icon(
+                    icon,
+                      color: Colors.white
+                  ),
                 ),
-                text
+                Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500
+                  ),
+                )
               ],
             ),
           ),
