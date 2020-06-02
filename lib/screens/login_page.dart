@@ -4,6 +4,7 @@ import 'sign_in.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
 class LoginPage extends StatefulWidget {
+  static const String id = 'login_screen';
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -35,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
-      color: Colors.white,
       onPressed: () {
         signInWithGoogle().whenComplete(() {
           Navigator.of(context).pushReplacement(

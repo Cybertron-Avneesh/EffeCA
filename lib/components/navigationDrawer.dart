@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:EffeCA/screens/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Utils/constants.dart';
@@ -13,6 +14,7 @@ import 'package:EffeCA/screens/message.dart';
 import 'package:EffeCA/screens/eventscreen.dart';
 import 'package:EffeCA/screens/firstscreen.dart';
 import 'package:EffeCA/screens/sign_in.dart';
+
 class MainWidget extends StatefulWidget {
   MainWidget({Key key, this.title}) : super(key: key);
   final String title;
@@ -33,7 +35,6 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
       userLoad = user;
     });
   }
-
 
   @override
   void initState() {
@@ -59,7 +60,6 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
         ),
         DrawerItem(
           text: 'About',
-
           icon: Icons.info_outline,
           page: AboutScreen(),
         ),
@@ -79,9 +79,39 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
           page: ContactScreen(),
         ),
         DrawerItem(
-          text:'Logout',
+          text: 'Logout',
           icon: Icons.power_settings_new,
-          onPressed:signOutGoogle,
+          onPressed: () {
+            showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text('Are you sure?'),
+                          content: Text('Do you want to logout?'),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: Text(
+                                'No',
+                              ),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                FirstScreen();
+                                signOutGoogle();
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            LoginPage()),
+                                    ModalRoute.withName('/'));
+                              },
+                              /*Navigator.of(context).pop(true)*/
+                              child: Text('Yes'),
+                            ),
+                          ],
+                        )) ??
+                false;
+          },
           page: FirstScreen(),
         )
       ],
@@ -108,7 +138,7 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                   child: Image(
                     fit: BoxFit.contain,
                     image: NetworkImage(
-                      userLoad.imageURL??'',
+                      userLoad.imageURL ?? '',
                     ),
                   ),
                 ),
@@ -117,13 +147,11 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
                 height: 6,
               ),
               Text(
-                userLoad.name??'',
+                userLoad.name ?? '',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              Text(
-                userLoad.email??'',
-                style: TextStyle(color: Colors.white70,fontSize: 12)
-              )
+              Text(userLoad.email ?? '',
+                  style: TextStyle(color: Colors.white70, fontSize: 12))
             ],
           ),
         ),
@@ -133,9 +161,9 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
             end: Alignment.bottomRight,
             colors: [
               Color(0xFFB600FF),
-             // Color(0xFFD9A2EF),
+              // Color(0xFFD9A2EF),
               Color(0xFFF6CECC),
-             // Color(0xFFEBE7F6),
+              // Color(0xFFEBE7F6),
             ],
             // tileMode: TileMode.repeated,
           ),
