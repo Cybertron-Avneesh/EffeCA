@@ -55,20 +55,44 @@ class _FirstScreenState extends State<FirstScreen>
     var ScreenSize = MediaQuery.of(context).size;
     //Add app url
     String appUrl = '';
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kSkin,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
+    Future<bool> _onWillPop() {
+      return showDialog(
+        context: context,
+        builder: (context) =>AlertDialog(
+
+          title: Text('Are you sure?'),
+          content: Text('Do you want to exit an App'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('No',
+             ),
             ),
-            onPressed: widget.onMenuPressed,
-          ),
-          title: Text('Home'),
+            FlatButton(
+              onPressed: () =>Navigator.of(context).pop(true),
+              /*Navigator.of(context).pop(true)*/
+              child: Text('Yes'),
+            ),
+          ],
         ),
-        body: ListView(children: <Widget>[
-          Container(
+      ) ??
+          false;
+    }
+    return WillPopScope(
+      onWillPop:_onWillPop ,
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: kSkin,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(
+                Icons.menu,
+              ),
+              onPressed: widget.onMenuPressed,
+            ),
+            title: Text('Home'),
+          ),
+          body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -78,126 +102,128 @@ class _FirstScreenState extends State<FirstScreen>
             ),
             padding: EdgeInsets.only(top: 30),
             alignment: Alignment.topCenter,
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Hi ${userLoad.name??''},',
-                  style: TextStyle(
-                      color: Color(0xff383637),
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900),
-                ),
-                Text(
-                  'Glad to have you as our campus ambassador.',
-                  style: TextStyle(color: Color(0xff383637), fontSize: 15),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:8.0,left: 8.0,right: 8.0),
-                  child: Stack(alignment: Alignment.center, children: <Widget>[
-                    SizedBox(
-                      height: 280,
-                      width: 280,
-                      child: FlareActor("assets/scoring.flr", animation:'active'),
-                    ),
-                    StreamBuilder(
-                      stream: _firestoreLBDetail
-                          .orderBy('total_point', descending: true)
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData)
-                          return RefreshProgressIndicator();
-                        final users = snapshot.data.documents;
-                        int rank = 1;
-                        for (var user in users) {
-                          if (userLoad.uid == user.data['uid']) {
-                            break;
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Hi ${userLoad.name??''},',
+                    style: TextStyle(
+                        color: Color(0xff383637),
+                        fontSize: 30,
+                        fontWeight: FontWeight.w900),
+                  ),
+                  Text(
+                    'Glad to have you as our campus ambassador.',
+                    style: TextStyle(color: Color(0xff383637), fontSize: 15),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:8.0,left: 8.0,right: 8.0),
+                    child: Stack(alignment: Alignment.center, children: <Widget>[
+                      SizedBox(
+                        height: 280,
+                        width: 280,
+                        child: FlareActor("assets/scoring.flr", animation:'active'),
+                      ),
+                      StreamBuilder(
+                        stream: _firestoreLBDetail
+                            .orderBy('total_point', descending: true)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData)
+                            return RefreshProgressIndicator();
+                          final users = snapshot.data.documents;
+                          int rank = 1;
+                          for (var user in users) {
+                            if (userLoad.uid == user.data['uid']) {
+                              break;
+                            }
+                            rank++;
                           }
-                          rank++;
-                        }
-                        return Text(
-                          rank.toString(),
-                          style: TextStyle(
-                              color: Colors.black54,
-                              fontSize: animation.value * 120,
-                              fontWeight: FontWeight.w900),
-                        );
-                      },
-                    ),
-                  ]),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Share.share(
-                        'Hey, check out the Effervescence \'20 CA App \n $appUrl');
-                  },
-                  child: Card(
-                    elevation: 7,
-                    margin: EdgeInsets.only(
-                        bottom: 50, right: 20, left: 20, top: 40),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Color(0xff383637),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            'Refer the Campus Ambassador app to your friends.',
+                          return Text(
+                            rank.toString(),
                             style: TextStyle(
-                                color: Color(0xffDF2AFF),
-                                fontSize: 15,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Let them know about the Campus Ambassador Program!',
-                            style: TextStyle(
-                              color: Color(0xffDF2AFF),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w300,
+                                color: Colors.black54,
+                                fontSize: animation.value * 120,
+                                fontWeight: FontWeight.w900),
+                          );
+                        },
+                      ),
+                    ]),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Share.share(
+                          'Hey, check out the Effervescence \'20 CA App \n $appUrl');
+                    },
+                    child: Card(
+                      elevation: 7,
+                      margin: EdgeInsets.only(
+                          bottom: 50, right: 20, left: 20, top: 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      color: Color(0xff383637),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              'Refer the Campus Ambassador app to your friends.',
+                              style: TextStyle(
+                                  color: Color(0xffDF2AFF),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: Icon(
-                                  Icons.share,
-                                  color: Colors.blue,
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Let them know about the Campus Ambassador Program!',
+                              style: TextStyle(
+                                color: Color(0xffDF2AFF),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w300,
                               ),
-                              Container(
-                                width: 2 * (ScreenSize.width) / 3,
-                                child: Text(
-                                  'Share this app with your friends',
-                                  style: TextStyle(
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: Icon(
+                                    Icons.share,
                                     color: Colors.blue,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w300,
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                                Container(
+                                  width: 2 * (ScreenSize.width) / 3,
+                                  child: Text(
+                                    'Share this app with your friends',
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )
-        ]));
+          )),
+    );
   }
 }
 
