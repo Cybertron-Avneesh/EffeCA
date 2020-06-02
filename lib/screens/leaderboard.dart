@@ -54,8 +54,8 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Leaderboard'),
+          ),
 
-        ),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
