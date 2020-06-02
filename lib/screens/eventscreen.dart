@@ -62,11 +62,7 @@ class _EventScreenState extends State<EventScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Events'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-            // Add Logout Feature
-          ],
-        ),
+          ),
         body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

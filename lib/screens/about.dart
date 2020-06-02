@@ -55,10 +55,6 @@ class _AboutScreenState extends State<AboutScreen> {
           onPressed: widget.onMenuPressed,
         ),
         title: Text('About'),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-          // Add Logout Feature
-        ],
       ),
       body: Container(
         decoration: BoxDecoration(

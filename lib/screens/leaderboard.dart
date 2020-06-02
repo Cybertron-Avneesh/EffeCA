@@ -54,11 +54,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Leaderboard'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-            // Add Logout Feature
-          ],
-        ),
+          ),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

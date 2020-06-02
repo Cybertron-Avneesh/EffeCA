@@ -7,7 +7,7 @@ import 'package:EffeCA/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../Utils/constants.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share/share.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
