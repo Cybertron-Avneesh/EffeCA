@@ -50,10 +50,6 @@ class _MessageScreenState extends State<MessageScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Message'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-            // Add Logout Feature
-          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),

@@ -71,10 +71,6 @@ class _ContactScreenState extends State<ContactScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Contacts'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.more_vert), onPressed: null)
-            // Add Logout Feature
-          ],
         ),
         body: Container(
           decoration: BoxDecoration(
