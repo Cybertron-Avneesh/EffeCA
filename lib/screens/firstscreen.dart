@@ -57,29 +57,30 @@ class _FirstScreenState extends State<FirstScreen>
     String appUrl = '';
     Future<bool> _onWillPop() {
       return showDialog(
-        context: context,
-        builder: (context) =>AlertDialog(
-
-          title: Text('Are you sure?'),
-          content: Text('Do you want to exit an App'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text('No',
-             ),
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Are you sure?'),
+              content: Text('Do you want to exit an App'),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text(
+                    'No',
+                  ),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  /*Navigator.of(context).pop(true)*/
+                  child: Text('Yes'),
+                ),
+              ],
             ),
-            FlatButton(
-              onPressed: () =>Navigator.of(context).pop(true),
-              /*Navigator.of(context).pop(true)*/
-              child: Text('Yes'),
-            ),
-          ],
-        ),
-      ) ??
+          ) ??
           false;
     }
+
     return WillPopScope(
-      onWillPop:_onWillPop ,
+      onWillPop: _onWillPop,
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: kSkin,
@@ -106,7 +107,7 @@ class _FirstScreenState extends State<FirstScreen>
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Hi ${userLoad.name??''},',
+                    'Hi ${userLoad.name ?? ''},',
                     style: TextStyle(
                         color: Color(0xff383637),
                         fontSize: 30,
@@ -120,12 +121,15 @@ class _FirstScreenState extends State<FirstScreen>
                     height: 10.0,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:8.0,left: 8.0,right: 8.0),
-                    child: Stack(alignment: Alignment.center, children: <Widget>[
+                    padding:
+                        const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+                    child:
+                        Stack(alignment: Alignment.center, children: <Widget>[
                       SizedBox(
                         height: 280,
                         width: 280,
-                        child: FlareActor("assets/scoring.flr", animation:'active'),
+                        child: FlareActor("assets/scoring.flr",
+                            animation: 'active'),
                       ),
                       StreamBuilder(
                         stream: _firestoreLBDetail
@@ -142,12 +146,22 @@ class _FirstScreenState extends State<FirstScreen>
                             }
                             rank++;
                           }
-                          return Text(
-                            rank.toString(),
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: animation.value * 120,
-                                fontWeight: FontWeight.w900),
+                          return Column(
+                            children: <Widget>[
+                              Text('Your rank is',
+                                  style: TextStyle(
+                                    fontSize: 8,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500
+                                  )),
+                              Text(
+                                rank.toString(),
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: animation.value * 110,
+                                    fontWeight: FontWeight.w900),
+                              ),
+                            ],
                           );
                         },
                       ),
