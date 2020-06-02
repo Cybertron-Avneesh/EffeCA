@@ -55,6 +55,7 @@ class _AboutScreenState extends State<AboutScreen> {
           onPressed: widget.onMenuPressed,
         ),
         title: Text('About'),
+
       ),
       body: Container(
         decoration: BoxDecoration(

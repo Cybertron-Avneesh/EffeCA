@@ -55,6 +55,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
           ),
           title: Text('Leaderboard'),
           ),
+
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

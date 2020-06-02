@@ -62,7 +62,8 @@ class _EventScreenState extends State<EventScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Events'),
-          ),
+        ),
+
         body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
