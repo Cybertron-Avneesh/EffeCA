@@ -46,6 +46,9 @@ dependencies:
   flare_splash_screen: ^3.0.1
   flare_flutter: ^2.0.3
   nima: ^1.0.5
+  flutter_offline: 0.2.4+1
+  connectivity: ^0.4.3+6
+  data_connection_checker: ^0.3.4
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:EffeCA/Utils/constants.dart';
@@ -44,11 +46,12 @@ class _EventScreenState extends State<EventScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     ScreenWidth = MediaQuery.of(context).size.width;
-    Future<bool> _onBackPress(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>MainWidget()));
+    Future<bool> _onBackPress() {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MainWidget()));
     }
+
     return WillPopScope(
       onWillPop: _onBackPress,
       child: Scaffold(
@@ -62,7 +65,7 @@ class _EventScreenState extends State<EventScreen> {
             onPressed: widget.onMenuPressed,
           ),
           title: Text('Events'),
-          ),
+        ),
         body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -124,7 +127,7 @@ class _EventScreenState extends State<EventScreen> {
   }
 }
 
-class EventDetailCard extends StatelessWidget {
+class EventDetailCard extends StatefulWidget {
   EventDetailCard({
     @required this.eventID,
     @required this.title,
@@ -139,6 +142,13 @@ class EventDetailCard extends StatelessWidget {
   final uids;
 
   @override
+  _EventDetailCardState createState() => _EventDetailCardState();
+}
+
+class _EventDetailCardState extends State<EventDetailCard> {
+  bool showProgressIndicator = false;
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
@@ -149,180 +159,303 @@ class EventDetailCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: EdgeInsets.only(left: 8, right: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: ScreenWidth / 2,
-                        child: RichText(
-                          maxLines: 3,
-                          text: TextSpan(
-                            text: url,
-                            style: TextStyle(color: Colors.blue, fontSize: 14,),
-                            recognizer:TapGestureRecognizer()
-                              ..onTap = () { launch(url);
-                              },
-                          ),
-
-                        ),
-                      )
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text(points.toString(),
-                                  style:
-                                      TextStyle(color: kPurple, fontSize: 30)),
-                              RotatedBox(
-                                child: Text('pts',
-                                    style: TextStyle(color: kLightPurple)),
-                                quarterTurns: -1,
-                              )
-                            ]),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.title,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
                       ),
-                      FlatButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () async {
-                          if (uids.contains(userLoad.uid)) {
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    'You have already uploaded for this event')));
-                          } else {
-                            var tempImage = await ImagePicker.pickImage(
-                                source: ImageSource.gallery);
-                            if (tempImage != null) {
-                              Scaffold.of(context).showBottomSheet((context) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.purple[50],
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(25.0),
-                                      topRight: Radius.circular(25.0),
-                                    ),
-                                  ),
-                                  height: 450,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Image.file(
-                                        tempImage,
-                                        width: 160,
-                                        height: 350,
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          RawMaterialButton(
-                                              child: Icon(
-                                                Icons.check,
-                                                color: Colors.white,
-                                                size: 50,
-                                              ),
-                                              elevation: 5,
-                                              shape: CircleBorder(),
-                                              fillColor: Colors.green,
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                                final StorageReference
-                                                    firebasestorageref =
-                                                    FirebaseStorage.instance
-                                                        .ref()
-                                                        .child(
-                                                            '${userLoad.email}/${url.replaceAll('/', '')}');
-                                                final StorageUploadTask task =
-                                                    firebasestorageref
-                                                        .putFile(tempImage);
-                                                Scaffold.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      'Uploaded Successfully'),
-                                                ));
-                                                _firestoreEvent
-                                                    .document(
-                                                        eventID.toString())
-                                                    .updateData({
-                                                  'uids': FieldValue.arrayUnion(
-                                                      [userLoad.uid.toString()])
-                                                });
-                                                _firestoreLeaderboard
-                                                    .document(
-                                                        userLoad.uid.toString())
-                                                    .updateData({
-                                                  'total_point':
-                                                      FieldValue.increment(
-                                                          points)
-                                                });
-                                              }),
-                                          RawMaterialButton(
-                                            child: Icon(
-                                              Icons.close,
-                                              color: Colors.white,
-                                              size: 50,
-                                            ),
-                                            elevation: 5,
-                                            shape: CircleBorder(),
-                                            fillColor: Colors.red,
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              Scaffold.of(context)
-                                                  .showSnackBar(SnackBar(
-                                                content: Text('Dismissed.'),
-                                              ));
-                                            },
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                );
-                              });
-                            }
-                          }
-                        },
-                        child: Chip(
-                          backgroundColor: kSkin,
-                          elevation: 2,
-                          shadowColor: kShadow,
-                          label: Text('Upload Image'),
-                          avatar: Icon(Icons.cloud_upload),
-                        ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: ScreenWidth / 2,
+                            child: RichText(
+                              maxLines: 3,
+                              text: TextSpan(
+                                text: widget.url,
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 14,
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launch(widget.url);
+                                  },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Spacer(),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text(widget.points.toString(),
+                                      style: TextStyle(
+                                          color: kPurple, fontSize: 30)),
+                                  RotatedBox(
+                                    child: Text('pts',
+                                        style: TextStyle(color: kLightPurple)),
+                                    quarterTurns: -1,
+                                  )
+                                ]),
+                          ),
+                          FlatButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () async {
+                              if (widget.uids.contains(userLoad.uid)) {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        'You have already uploaded for this event')));
+                              } else {
+                                var tempImage = await ImagePicker.pickImage(
+                                    source: ImageSource.gallery);
+                                if (tempImage != null) {
+                                  Scaffold.of(context)
+                                      .showBottomSheet((context) {
+                                    return BuildUploader(
+                                        tempImage: tempImage, widget: widget);
+                                  });
+                                }
+                              }
+                            },
+                            child: Chip(
+                              backgroundColor: kSkin,
+                              elevation: 2,
+                              shadowColor: kShadow,
+                              label: Text('Upload Image'),
+                              avatar: Icon(Icons.cloud_upload),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ],
               ),
+              if (showProgressIndicator)
+                Center(child: Container(child: CircularProgressIndicator()))
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class BuildUploader extends StatelessWidget {
+  const BuildUploader({
+    Key key,
+    @required this.tempImage,
+    @required this.widget,
+  }) : super(key: key);
+
+  final File tempImage;
+  final EventDetailCard widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.purple[50],
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25.0),
+          topRight: Radius.circular(25.0),
+        ),
+      ),
+      height: 450,
+      child: Column(
+        children: <Widget>[
+          Image.file(
+            tempImage,
+            width: 160,
+            height: 350,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              CheckButton(widget: widget, tempImage: tempImage),
+              CrossButton()
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class CrossButton extends StatelessWidget {
+  const CrossButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(
+        Icons.close,
+        color: Colors.white,
+        size: 50,
+      ),
+      elevation: 5,
+      shape: CircleBorder(),
+      fillColor: Colors.red,
+      onPressed: () {
+        Navigator.pop(context);
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Dismissed.'),
+        ));
+      },
+    );
+  }
+}
+
+class CheckButton extends StatelessWidget {
+  const CheckButton({
+    Key key,
+    @required this.widget,
+    @required this.tempImage,
+  }) : super(key: key);
+
+  final EventDetailCard widget;
+  final File tempImage;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+          size: 50,
+        ),
+        elevation: 5,
+        shape: CircleBorder(),
+        fillColor: Colors.green,
+        onPressed: () async {
+          Navigator.pop(context);
+          var listener =
+              DataConnectionChecker().onStatusChange.listen((status) async {
+            switch (status) {
+              case DataConnectionStatus.connected:
+                {
+                  print('Data connection is available.');
+                  final StorageReference firebasestorageref = FirebaseStorage
+                      .instance
+                      .ref()
+                      .child('${userLoad.uid}/${widget.eventID}');
+                  final StorageUploadTask task =
+                      firebasestorageref.putFile(tempImage);
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return StreamBuilder<StorageTaskEvent>(
+                            stream: task.events,
+                            builder: (context, snapshot) {
+                              return AlertDialog(
+                                title: task.isComplete
+                                    ? Text('Uploaded')
+                                    : Text('Uploading...'),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      if (task.isComplete)
+                                        Text('🎉🎉🎉')
+                                      else
+                                        LinearProgressIndicator(backgroundColor: kLightPurple,),
+
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  if (task.isComplete)
+                                    FlatButton(
+                                      child: Text('Done'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                ],
+                              );
+                            });
+                      });
+                  task.onComplete.whenComplete(() {
+                    print('--------- Completed --------');
+                    _firestoreEvent
+                        .document(widget.eventID.toString())
+                        .updateData({
+                      'uids': FieldValue.arrayUnion([userLoad.uid.toString()])
+                    });
+                    _firestoreLeaderboard
+                        .document(userLoad.uid.toString())
+                        .updateData({
+                      'total_point': FieldValue.increment(widget.points),
+                      'eventIDs': FieldValue.arrayUnion([widget.eventID])
+                    });
+                  });
+                  break;
+                }
+              case DataConnectionStatus.disconnected:
+                {
+                  print('You are disconnected from the internet.');
+                  Navigator.pop(context);
+                  showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          '⚠ Upload Error',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text('Check your internet connection.'),
+                              Text('Try again later.'),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text('Okay'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+                break;
+            }
+          });
+          await Future.delayed(Duration(seconds: 1));
+          await listener.cancel();
+        });
   }
 }
