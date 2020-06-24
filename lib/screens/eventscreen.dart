@@ -423,7 +423,6 @@ class CheckButton extends StatelessWidget {
               case DataConnectionStatus.disconnected:
                 {
                   print('You are disconnected from the internet.');
-                  Navigator.pop(context);
                   showDialog<void>(
                     context: context,
                     builder: (BuildContext context) {
