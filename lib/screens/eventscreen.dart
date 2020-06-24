@@ -66,6 +66,7 @@ class _EventScreenState extends State<EventScreen> {
           ),
           title: Text('Events'),
         ),
+
         body: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
